@@ -6,10 +6,15 @@ Release:	0.3
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
+# Source0-md5:	67135ae721f7a927e0f9a96644694617
 Source1:	%{name}-cron_entries.tar.gz
+# Source1-md5:	d5e2bd6447715654ba916b6f4d0d9343
 Source2:	%{name}-defaults.tar.gz
+# Source2-md5:	9fae3c4503ecd328a85cd23a430f4ddf
 Source3:	%{name}-dialrules_extras.tar.gz
+# Source3-md5:	092430f320963d31932b587152fb811b
 Source4:	%{name}-man-pages.tar.bz2
+# Source4-md5:	62772fbbce6cb3a918145ad8a836b4eb
 Source6:	%{name}-logrotate
 Source7:	%{name}-init
 Source8:	%{name}-hyla.conf
