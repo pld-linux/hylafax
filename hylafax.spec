@@ -2,7 +2,7 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1.3
-Release:	1
+Release:	0.2
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
@@ -152,8 +152,7 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 	--with-DIR_SPOOL=%{faxspool} \
 	--with-PATH_GSRIP=%{_bindir}/gs \
 	--with-AFM=no \
-	--with-DSO=LINUX \
-	--with-DSOSUF=so \
+	--with-DSO=auto \
 	--with-PATH_VGETTY=/sbin/vgetty \
 	--with-PATH_EGETTY=/sbin/egetty \
 	--with-PATH_GETTY=/sbin/mgetty \
@@ -170,7 +169,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir},%{_datadir}/fax} \
 	$RPM_BUILD_ROOT%{faxspool}/{etc,config/defaults,bin} \
-	$RPM_BUILD_ROOT%{_mand[1~ir}/{man1,man5,man8}
+	$RPM_BUILD_ROOT%{_mandir}/{man1,man5,man8}
 
 %{__make} install -e \
 	FAXUSER=`id -u` \
@@ -183,7 +182,8 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.
 	LIBEXEC=$RPM_BUILD_ROOT%{_sbindir} \
 	SPOOL=$RPM_BUILD_ROOT%{faxspool} \
 	MAN=$RPM_BUILD_ROOT%{_mandir} \
-	INSTALL_ROOT=$RPM_BUILD_ROOT
+	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+	INSTALL_ROOT=$RPM_BUILD_ROOT 	
 
 bzip2 -dc %{SOURCE4} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
@@ -215,8 +215,8 @@ install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}%{_sysconfdir}
 (cd $RPM_BUILD_ROOT%{faxspool}/bin; ln -sf ps2fax.gs ps2fax)
 
 # The Makefile puts the .so file in /usr/sbin. Move them to /usr/lib
-mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so.* $RPM_BUILD_ROOT%{_libdir}
-mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so $RPM_BUILD_ROOT%{_libdir}
+#mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so.* $RPM_BUILD_ROOT%{_libdir}
+#mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so $RPM_BUILD_ROOT%{_libdir}
 
 # Since now the html doc dir is managed by the doc macro and not installed
 # by HylaFAX, the CVS stuff need to be deleted
