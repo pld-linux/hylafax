@@ -5,8 +5,21 @@ Version:	4.1
 Release:	0.1
 License:	distributable
 Group:		Applications/Communications
+Group(cs):	Aplikace/Komunikace
+Group(da):	Programmer/Kommunikation
 Group(de):	Applikationen/Kommunikation
+Group(es):	Aplicaciones/Comunicaciones
+Group(fr):	Applications/Transmissions
+Group(is):	Forrit/Samskipti
+Group(it):	Applicazioni/Comunicazioni
+Group(ja):	•¢•◊•Í•±°º•∑•Á•Û/ƒÃøÆ
+Group(no):	Applikasjoner/Kommunikasjon
 Group(pl):	Aplikacje/Komunikacja
+Group(pt):	AplicaÁıes/ComunicaÁıes
+Group(ru):	“…Ãœ÷≈Œ…—/ÎœÕÕ’Œ…À¡√……
+Group(sl):	Programi/Komunikacije
+Group(sv):	Till‰mpningar/Kommunikation
+Group(uk):	“…ÀÃ¡ƒŒ¶ “œ«“¡Õ…/ÎœÕ’Œ¶À¡√¶ß
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 Source2:	%{name}-defaults.tar.gz
@@ -55,8 +68,21 @@ Ten pakiet zawiera pliki wspÛlne dla serwera i klienta HylaFAX.
 Summary:	The files for the HylaFAX(tm) fax server
 Summary(pl):	Pliki dla serwera faksÛw HylaFAX(tm)
 Group:		Applications/Communications
+Group(cs):	Aplikace/Komunikace
+Group(da):	Programmer/Kommunikation
 Group(de):	Applikationen/Kommunikation
+Group(es):	Aplicaciones/Comunicaciones
+Group(fr):	Applications/Transmissions
+Group(is):	Forrit/Samskipti
+Group(it):	Applicazioni/Comunicazioni
+Group(ja):	•¢•◊•Í•±°º•∑•Á•Û/ƒÃøÆ
+Group(no):	Applikasjoner/Kommunikasjon
 Group(pl):	Aplikacje/Komunikacja
+Group(pt):	AplicaÁıes/ComunicaÁıes
+Group(ru):	“…Ãœ÷≈Œ…—/ÎœÕÕ’Œ…À¡√……
+Group(sl):	Programi/Komunikacije
+Group(sv):	Till‰mpningar/Kommunikation
+Group(uk):	“…ÀÃ¡ƒŒ¶ “œ«“¡Õ…/ÎœÕ’Œ¶À¡√¶ß
 Requires:	%{name} = %{version}
 
 %description server
@@ -64,19 +90,38 @@ HylaFAX(tm) is a sophisticated enterprise-strength fax package for
 class 1 and 2 fax modems on unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
-implementations exist for a number of platforms including windows.
+implementations exist for a number of platforms including Windows.
 
 This is the server portion of HylaFAX.
 
 %description server -l pl
+HylaFAX(tm) to przemy∂lany, potÍøny pakiet do obs≥ugi faxmodemÛw klasy
+1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+narzÍdzi do zarz±dzania faksami. Klienci mog± dzia≥aÊ na maszynach
+innych niø serwer, implementacje klientÛw s± dostÍpne na wiele
+platform, w tym Windows.
+
 Ten pakiet zawiera czÍ∂Ê serwerow± HylaFAX.
 
 %package client
 Summary:	The files for the HylaFAX(tm) fax client
 Summary(pl):	Pliki dla klienta faksÛw HylaFAX(tm)
 Group:		Applications/Communications
+Group(cs):	Aplikace/Komunikace
+Group(da):	Programmer/Kommunikation
 Group(de):	Applikationen/Kommunikation
+Group(es):	Aplicaciones/Comunicaciones
+Group(fr):	Applications/Transmissions
+Group(is):	Forrit/Samskipti
+Group(it):	Applicazioni/Comunicazioni
+Group(ja):	•¢•◊•Í•±°º•∑•Á•Û/ƒÃøÆ
+Group(no):	Applikasjoner/Kommunikasjon
 Group(pl):	Aplikacje/Komunikacja
+Group(pt):	AplicaÁıes/ComunicaÁıes
+Group(ru):	“…Ãœ÷≈Œ…—/ÎœÕÕ’Œ…À¡√……
+Group(sl):	Programi/Komunikacije
+Group(sv):	Till‰mpningar/Kommunikation
+Group(uk):	“…ÀÃ¡ƒŒ¶ “œ«“¡Õ…/ÎœÕ’Œ¶À¡√¶ß
 Requires:	%{name} = %{version}
 
 %description client
@@ -84,23 +129,38 @@ HylaFAX(tm) is a sophisticated enterprise-strength fax package for
 class 1 and 2 fax modems on unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
-implementations exist for a number of platforms including windows.
+implementations exist for a number of platforms including Windows.
 
 This is the client portion of HylaFAX.
 
 %description client -l pl
+HylaFAX(tm) to przemy∂lany, potÍøny pakiet do obs≥ugi faxmodemÛw klasy
+1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+narzÍdzi do zarz±dzania faksami. Klienci mog± dzia≥aÊ na maszynach
+innych niø serwer, implementacje klientÛw s± dostÍpne na wiele
+platform, w tym Windows.
+
 Ten pakiet zawiera czÍ∂Ê klienck± HylaFAX.
 
 %package libs
 Summary:	Hylafax libraries
 Summary(pl):	Biblioteki HylaFAX
 Group:		Libraries
-Group(de):	Libraries
+Group(cs):	Knihovny
+Group(da):	Biblioteker
+Group(de):	Bibliotheken
 Group(es):	Bibliotecas
 Group(fr):	Librairies
+Group(is):	Agerasˆfn
+Group(it):	Librerie
+Group(ja):	•È•§•÷•È•Í
+Group(no):	Biblioteker
 Group(pl):	Biblioteki
+Group(pt):	Bibliotecas
 Group(pt_BR):	Bibliotecas
 Group(ru):	‚…¬Ã…œ‘≈À…
+Group(sl):	Knjiænice
+Group(sv):	Bibliotek
 Group(uk):	‚¶¬Ã¶œ‘≈À…
 
 %description libs
@@ -108,23 +168,38 @@ HylaFAX(tm) is a sophisticated enterprise-strength fax package for
 class 1 and 2 fax modems on unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
-implementations exist for a number of platforms including windows.
+implementations exist for a number of platforms including Windows.
 
 This package contains the shared libraries of HylaFAX.
 
 %description libs -l pl
+HylaFAX(tm) to przemy∂lany, potÍøny pakiet do obs≥ugi faxmodemÛw klasy
+1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+narzÍdzi do zarz±dzania faksami. Klienci mog± dzia≥aÊ na maszynach
+innych niø serwer, implementacje klientÛw s± dostÍpne na wiele
+platform, w tym Windows.
+
 Ten pakiet zawiera biblioteki wspÛ≥dzielone HylaFAX
 
 %package devel
 Summary:	Hylafax libraries development part
 Summary(pl):	Pakiet dla programistÛw uøywaj±cych bibliotek HylaFAX
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
+Group(cs):	V˝vojovÈ prost¯edky/Knihovny
+Group(da):	Udvikling/Biblioteker
+Group(de):	Entwicklung/Bibliotheken
 Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
+Group(is):	ﬁrÛunartÛl/Agerasˆfn
+Group(it):	Sviluppo/Librerie
+Group(ja):	≥´»Ø/•È•§•÷•È•Í
+Group(no):	Utvikling/Bibliotek
 Group(pl):	Programowanie/Biblioteki
 Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(pt):	Desenvolvimento/Bibliotecas
 Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
+Group(sl):	Razvoj/Knjiænice
+Group(sv):	Utveckling/Bibliotek
 Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 Requires:	%{name}-libs = %{version}
 
@@ -133,7 +208,7 @@ HylaFAX(tm) is a sophisticated enterprise-strength fax package for
 class 1 and 2 fax modems on unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
-implementations exist for a number of platforms including windows.
+implementations exist for a number of platforms including Windows.
 
 This is development package for HylaFAX libraries.
 
@@ -144,7 +219,7 @@ Pakiet dla programistÛw uøywaj±cych bibliotek HylaFAX.
 %setup -q -n %{name}-%{version} -a 1 -a 2 -a 3 -q
 %patch1 -p1
 %patch2 -p1
-%patch4 
+%patch4
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
@@ -201,7 +276,7 @@ perl -pi -e 's!%{_libdir}/aliases!%{_sysconfdir}/aliases!g' $RPM_BUILD_ROOT%{_sb
 # init
 install %{SOURCE7} $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
 
-# defaults 
+# defaults
 install defaults/* $RPM_BUILD_ROOT%{faxspool}/config/defaults/
 
 # hyla.conf
@@ -275,7 +350,7 @@ if [ "$1" = "0" ] ; then
 	/sbin/telinit q
 fi
 
-%files 
+%files
 %defattr(644,root,root,755)
 %doc README.gz TODO.gz VERSION.gz
 %attr(755,root,root) %{_sbindir}/faxsetup
@@ -304,32 +379,31 @@ fi
 %attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.daily/hylafax
 %attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.hourly/hylafax
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/hylafax
-# TODO: put proper perms here...
-%attr(-,uucp,uucp) %dir %{faxspool}
-%attr(-,uucp,uucp) %dir %{faxspool}/bin
-%attr(-,uucp,uucp) %dir %{faxspool}/client
-%attr(-,uucp,uucp) %dir %{faxspool}/config
-%attr(-,uucp,uucp) %dir %{faxspool}/dev
-%attr(-,uucp,uucp) %dir %{faxspool}%{_sysconfdir}
-%attr(-,uucp,uucp) %dir %{faxspool}/info
-%attr(-,uucp,uucp) %dir %{faxspool}/log
-%attr(-,uucp,uucp) %dir %{faxspool}/recvq
-%attr(-,uucp,uucp) %dir %{faxspool}/status
-%attr(-,uucp,uucp) %dir %{faxspool}/sendq
-%attr(-,uucp,uucp) %dir %{faxspool}/doneq
-%attr(-,uucp,uucp) %dir %{faxspool}/docq
-%attr(-,uucp,uucp) %dir %{faxspool}/tmp
-%attr(-,uucp,uucp) %dir %{faxspool}/pollq
-%attr(-,uucp,uucp) %dir %{faxspool}/archive
+%dir %{faxspool}
+%dir %{faxspool}/bin
+%dir %{faxspool}/client
+%dir %{faxspool}/config
+%dir %{faxspool}/dev
+%dir %{faxspool}%{_sysconfdir}
+%attr(755,uucp,uucp) %dir %{faxspool}/info
+%attr(755,uucp,uucp) %dir %{faxspool}/log
+%attr(755,uucp,uucp) %dir %{faxspool}/recvq
+%attr(755,uucp,uucp) %dir %{faxspool}/status
+%attr(755,uucp,uucp) %dir %{faxspool}/sendq
+%attr(755,uucp,uucp) %dir %{faxspool}/doneq
+%attr(755,uucp,uucp) %dir %{faxspool}/docq
+%attr(755,uucp,uucp) %dir %{faxspool}/tmp
+%attr(755,uucp,uucp) %dir %{faxspool}/pollq
+%attr(755,uucp,uucp) %dir %{faxspool}/archive
 
-%attr(-,uucp,uucp) %{faxspool}/FIFO
-%attr(-,root,root) %{faxspool}/COPYRIGHT
-%attr(-,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/xferfaxlog
-%attr(-,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/hosts.hfaxd
-%attr(-,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/lutRS18.pcf
-%attr(-,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/dpsprinter.ps
-%attr(-,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/cover.templ
-%attr(-,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/dialrules*
+%attr(600,uucp,uucp) %{faxspool}/FIFO
+%{faxspool}/COPYRIGHT
+%attr(644,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/xferfaxlog
+%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/hosts.hfaxd
+%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/lutRS18.pcf
+%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/dpsprinter.ps
+%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/cover.templ
+%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/dialrules*
 
 %{faxspool}/bin/*
 %{faxspool}/config/*
@@ -370,7 +444,7 @@ fi
 %{_datadir}/fax/faxmail.ps
 %{_datadir}/fax/hfaxd.conf
 
-%{_mandir}/man5/* 
+%{_mandir}/man5/*
 %{_mandir}/man8/*
 
 %files libs
