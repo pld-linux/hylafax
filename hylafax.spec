@@ -22,6 +22,8 @@ URL:		http://www.hylafax.org/
 BuildRequires:	libjpeg-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	zlib-devel
+BuildRequires:  gcc-c++
+BuildRequires:	libtiff-progs
 Requires:	%{name}-libs = %{version}
 Requires:	ghostscript
 Requires:	libtiff-progs
