@@ -1,12 +1,12 @@
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
-Version:	4.1.7
-Release:	2
+Version:	4.1.8
+Release:	1
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	1302066b0055a060e525026919d98ff7
+# Source0-md5:	beaf55ad7935e3bcaa53a5ac093f61a8
 Source1:	%{name}-cron_entries.tar.gz
 # Source1-md5:	d5e2bd6447715654ba916b6f4d0d9343
 Source2:	%{name}-defaults.tar.gz
@@ -20,7 +20,6 @@ Source7:	%{name}-init
 Source8:	%{name}-hyla.conf
 Patch0:		%{name}-no_libgl_man.patch
 Patch1:		%{name}-topmargin.patch
-Patch2:		%{name}-format.patch
 URL:		http://www.hylafax.org/
 BuildRequires:	libjpeg-devel
 BuildRequires:	libtiff-devel
@@ -147,7 +146,6 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 %setup -q -a1 -a2 -a3
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 ./configure \
