@@ -90,26 +90,21 @@ start()	{
 
 	if checkvar $FAXQ_SERVER 
 	then
-		echo -n "Starting HylaFAX queue manager: "
+		msg_starting "HylaFAX queue manager"
 		daemon faxq
 		RETVAL=$?
-		echo
-	else
-		echo -n "HylaFAX queue manager not started. "
 	fi
 
 	if checkvar $HFAXD_SERVER 
-	then 
-		echo -n "Starting HylaFAX server: "
-		echo -n $OUT
+	then
+	    	msg="HylaFAX server"
+		[ -n "$OUT" ] && msg="$msg $OUT"
+		msg_starting "HylaFAX server"
 		daemon hfaxd $OPTS
 		RETVAL2=$?
-		echo
-	else
-		echo -n "HylaFAX server not started. "
 	fi
 
-	[ $RETVAL -eq 0 -a $RETVAL2 -eq 0 ] && touch /var/lock/subsys/hylafax ||  RETVAL=1
+	[ $RETVAL -eq 0 -a $RETVAL2 -eq 0 ] && touch /var/lock/subsys/hylafax || RETVAL=1
 
         return $RETVAL
 }
@@ -118,15 +113,13 @@ stop() {
 	local RETVAL=0
 	local RETVAL2=0
 
-	echo -n "Shutting down HylaFAX queue manager: " 
-	/usr/sbin/faxquit >/dev/null 2>&1
+	msg_stopping "HylaFAX queue manager" 
+	daemon /usr/sbin/faxquit
 	RETVAL=$?
-	echo
 
-	echo -n "Shutting down HylaFAX server: "
+	msg_stopping "HylaFAX server"
 	killproc hfaxd
 	RETVAL2=$?
-	echo
 	
 	[ $RETVAL -eq 0 -a $RETVAL2 -eq 0 ] && rm -f /var/lock/subsys/hylafax || RETVAL=1
 	return $RETVAL
@@ -135,11 +128,10 @@ stop() {
 faxgettyreset() {
 	if pidofproc faxgetty > /dev/null
 	then
-		if killproc faxgetty
-		then
-			echo -n -e "Restarting FaxGetty...\n"
-		fi
-		init q
+	    	msg_starting "FaxGetty restart process"
+		killproc faxgetty
+		msg_starting "FaxGetty restart process (init reload)"
+		daemon init q
 	fi
 
 	return 0
@@ -148,7 +140,6 @@ faxgettyreset() {
 restart() {
 	stop
 	start
-
 	faxgettyreset
 }
 
