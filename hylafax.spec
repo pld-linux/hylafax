@@ -2,7 +2,7 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1
-Release:	0.3
+Release:	0.4
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
@@ -243,8 +243,6 @@ rm -f html/tools/{unquote,man2html}
 rm -f $RPM_BUILD_ROOT%{_sbindir}/{faxsetup.irix,faxsetup.bsdi}
 %endif
 
-gzip -9nf COPYRIGHT README TODO VERSION
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -283,7 +281,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README.gz TODO.gz VERSION.gz
+%doc README TODO VERSION
 %attr(755,root,root) %{_sbindir}/faxsetup
 %attr(755,root,root) %{_sbindir}/faxsetup.linux
 %dir %{_datadir}/fax
@@ -380,7 +378,7 @@ fi
 
 %files libs
 %defattr(644,root,root,755)
-%doc COPYRIGHT.gz
+%doc COPYRIGHT
 %attr(755,root,root) %{_libdir}/*.so.*.*
 
 %files devel
