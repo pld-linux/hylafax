@@ -167,7 +167,6 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir},%{_datadir}/fax} \
 	$RPM_BUILD_ROOT%{faxspool}/{etc,config/defaults,bin} \
@@ -214,7 +213,6 @@ install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/hylafax
 install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}%{_sysconfdir}
 
 (cd $RPM_BUILD_ROOT%{faxspool}/bin; ln -sf ps2fax.gs ps2fax)
-
 
 # The Makefile puts the .so file in /usr/sbin. Move them to /usr/lib
 mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so.* $RPM_BUILD_ROOT%{_libdir}
