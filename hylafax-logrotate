@@ -1,0 +1,5 @@
+/var/spool/fax/etc/xferfaxlog {
+	rotate 3
+	monthly
+	compress
+}

@@ -1,0 +1,172 @@
+diff -uNr hylafax-v4.0pl2-rjc10.orig/defs.in hylafax-v4.0pl2-rjc10/defs.in
+--- hylafax-v4.0pl2-rjc10.orig/defs.in	Mon Jan  4 09:17:09 1999
++++ hylafax-v4.0pl2-rjc10/defs.in	Sat Jun 19 22:59:14 1999
+@@ -118,9 +118,9 @@
+ #   for DSO's that are stuck in non-standard system locations
+ #
+ DSO		= @DSOSUF@
+-DSOOPTS		= @DSOOPTS@
++DSOOPTS		= -shared -Wl,-soname,$@ @DSOOPTS@
+ DSODELAY	= @DSODELAY@
+-LLDOPTS		= @LLDOPTS@
++LLDOPTS		= -L${UTIL} -L${FAXD} -lfaxutil @LLDOPTS@
+ 
+ #
+ # Default optimizer and prototype options
+@@ -187,7 +187,8 @@
+ LIBREGEX	= @LIBREGEX@
+ # random utility functions and classes
+ UTIL		= ${DEPTH}/util
+-LIBUTIL		= ${UTIL}/libfaxutil.${DSO}
++FAXD		= ${DEPTH}/faxd
++LIBUTIL		= 
+ LIBPORT		= @LIBPORT@
+ 
+ #
+diff -uNr hylafax-v4.0pl2.orig/faxd/Makefile.LINUXdso hylafax-v4.0pl2/faxd/Makefile.LINUXdso
+--- hylafax-v4.0pl2.orig/faxd/Makefile.LINUXdso	Thu Jan  1 01:00:00 1970
++++ hylafax-v4.0pl2/faxd/Makefile.LINUXdso	Wed May 27 23:41:39 1998
+@@ -0,0 +1,46 @@
++#	$Id$
++#
++# HylaFAX Facsimile Software
++#
++# Copyright (c) 1990-1996 Sam Leffler
++# Copyright (c) 1991-1996 Silicon Graphics, Inc.
++# HylaFAX is a trademark of Silicon Graphics
++# 
++# Permission to use, copy, modify, distribute, and sell this software and 
++# its documentation for any purpose is hereby granted without fee, provided
++# that (i) the above copyright notices and this permission notice appear in
++# all copies of the software and related documentation, and (ii) the names of
++# Sam Leffler and Silicon Graphics may not be used in any advertising or
++# publicity relating to the software without the specific, prior written
++# permission of Sam Leffler and Silicon Graphics.
++# 
++# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
++# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
++# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
++# 
++# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
++# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
++# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
++# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
++# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
++# OF THIS SOFTWARE.
++#
++
++#
++# DSO-specific rules for the faxd directory.
++#
++LDIRT	+= libfaxserver.a
++
++LIBVERSION=4.0.1
++
++libfaxserver.${DSO}: ${SERVER_OBJS} ${MODEM_OBJS}
++	${C++} ${DSOOPTS} -o libfaxserver.${DSO}.${LIBVERSION} \
++	    ${SERVER_OBJS} ${MODEM_OBJS} ${LLDLIBS}
++	ln -s libfaxserver.${DSO}.${LIBVERSION} libfaxserver.${DSO}
++
++installDSO: libfaxserver.${DSO}
++	${PUTSERV} -F ${LIBEXEC} -m 755 -O libfaxserver.${DSO}.${LIBVERSION}
++	(cd ${LIBEXEC}; ln -s libfaxserver.${DSO}.${LIBVERSION} libfaxserver.${DSO})
++
++
++
+diff -uNr hylafax-v4.0pl2.orig/faxd/Makefile.in hylafax-v4.0pl2/faxd/Makefile.in
+--- hylafax-v4.0pl2.orig/faxd/Makefile.in	Sat Feb 14 10:48:41 1998
++++ hylafax-v4.0pl2/faxd/Makefile.in	Wed May 27 23:41:39 1998
+@@ -177,29 +177,29 @@
+ incdepend: version.h hash.h
+ 
+ faxq:	${FAXQOBJS} libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ ${FAXQOBJS} libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ ${FAXQOBJS} -lfaxserver ${LDFLAGS}
+ faxsend: ${FAXSENDOBJS} libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ ${FAXSENDOBJS} libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ ${FAXSENDOBJS} -lfaxserver ${LDFLAGS}
+ faxgetty: ${FAXGETTYOBJS} libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ ${FAXGETTYOBJS} libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ ${FAXGETTYOBJS} -lfaxserver ${LDFLAGS}
+ faxqclean: ${FAXQCLEANOBJS} libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ ${FAXQCLEANOBJS} libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ ${FAXQCLEANOBJS} -lfaxserver ${LDFLAGS}
+ 
+ PAGESENDOBJS=\
+ 	pageSendApp.o
+ pagesend:${PAGESENDOBJS} libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ ${PAGESENDOBJS} libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ ${PAGESENDOBJS} -lfaxserver ${LDFLAGS}
+ 
+ tagtest: tagtest.o libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ tagtest.o libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ tagtest.o -lfaxserver ${LDFLAGS}
+ cqtest:	cqtest.o libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ cqtest.o libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ cqtest.o -lfaxserver ${LDFLAGS}
+ choptest: choptest.o libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ choptest.o libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ choptest.o -lfaxserver ${LDFLAGS}
+ tsitest: tsitest.o libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ tsitest.o libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ tsitest.o -lfaxserver ${LDFLAGS}
+ trigtest: trigtest.o libfaxserver.${DSO} ${LIBS}
+-	${C++F} -o $@ trigtest.o libfaxserver.${DSO} ${LDFLAGS}
++	${C++F} -o $@ trigtest.o -lfaxserver ${LDFLAGS}
+ 
+ PUTSERV=${INSTALL} -idb ${PRODUCT}.sw.server
+ 
+diff -uNr hylafax-v4.0pl2.orig/util/Makefile.LINUXdso hylafax-v4.0pl2/util/Makefile.LINUXdso
+--- hylafax-v4.0pl2.orig/util/Makefile.LINUXdso	Thu Jan  1 01:00:00 1970
++++ hylafax-v4.0pl2/util/Makefile.LINUXdso	Wed May 27 23:41:40 1998
+@@ -0,0 +1,50 @@
++#	$Id$
++#
++# HylaFAX Facsimile Software
++#
++# Copyright (c) 1990-1996 Sam Leffler
++# Copyright (c) 1991-1996 Silicon Graphics, Inc.
++# HylaFAX is a trademark of Silicon Graphics
++# 
++# Permission to use, copy, modify, distribute, and sell this software and 
++# its documentation for any purpose is hereby granted without fee, provided
++# that (i) the above copyright notices and this permission notice appear in
++# all copies of the software and related documentation, and (ii) the names of
++# Sam Leffler and Silicon Graphics may not be used in any advertising or
++# publicity relating to the software without the specific, prior written
++# permission of Sam Leffler and Silicon Graphics.
++# 
++# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
++# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
++# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
++# 
++# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
++# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
++# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
++# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
++# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
++# OF THIS SOFTWARE.
++#
++
++#
++# DSO-specific rules for the util directory.
++#
++LIBVERSION=4.0.1
++
++libfaxutil.${DSO}: ${OBJECTS}
++	${C++} ${DSOOPTS} -o libfaxutil.${DSO}.${LIBVERSION} ${OBJECTS} \
++	    ${DSODELAY} ${LIBTIFF} ${DSODELAY} ${LIBZ} ${DSODELAY} ${LIBREGEX} \
++	    ${MACHDEPLIBS}
++	ln -s libfaxutil.${DSO}.${LIBVERSION} libfaxutil.${DSO}
++
++../util/libfaxutil.${DSO}: libfaxutil.${DSO}
++
++installDSO: libfaxutil.${DSO}
++	${PUTCLIENT} -F ${LIBEXEC} -m 755 -O libfaxutil.${DSO}.${LIBVERSION}
++	(cd ${LIBEXEC}; ln -s libfaxutil.${DSO}.${LIBVERSION} libfaxutil.${DSO})
++
++
++
++
++
++

@@ -1,0 +1,16 @@
+diff -Nru hylafax.orig/faxd/faxQueueApp.c++ hylafax/faxd/faxQueueApp.c++
+--- hylafax.orig/faxd/faxQueueApp.c++	Thu Apr 26 09:50:44 2001
++++ hylafax/faxd/faxQueueApp.c++	Fri May 18 15:57:48 2001
+@@ -841,6 +841,12 @@
+ 	u_int topMargin = 1*98;			// 1" at 98 lpi
+ 	if (params.vr == VR_FINE)		// 196 lpi =>'s twice as many
+ 	    topMargin *= 2;
++
++	/*
++	 * Skip at least 200 rows. ZYXELs like it.
++	 */
++	if( topMargin < 220 ) topMargin = 220;
++
+ 	do {
+ 	    (void) decodeRow(NULL, rowpixels);
+ 	} while (--topMargin);
