@@ -27,3 +27,15 @@
  libfaxserver.a: ${SERVER_OBJS} ${MODEM_OBJS}
  	${AR} ${AROPTS} libfaxserver.a $?
  	${RANLIB} libfaxserver.a
+--- hylafax-4.1.8/regex/Makefile.in.orig	1999-08-05 10:01:44.000000000 +0000
++++ hylafax-4.1.8/regex/Makefile.in	2004-03-24 12:07:30.000000000 +0000
+@@ -53,6 +53,9 @@
+ 
+ @MAKEINCLUDE@ @MAKELQUOTE@${COMMONRULES}@MAKERQUOTE@
+ 
++${OBJECTS}: %.o: %.c
++	${CCF} -fPIC -c $<
++
+ libregex.a: ${OBJECTS}
+ 	@rm -f $@;
+ 	${AR} ${AROPTS} $@ ${OBJECTS}
