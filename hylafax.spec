@@ -150,7 +150,7 @@ This is development package for HylaFAX libraries.
 Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 
 %prep
-%setup -q -a 1 -a 2 -a 3 -q
+%setup -q -a1 -a2 -a3
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -176,7 +176,7 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 	--with-SCRIPT_SH=/bin/bash \
 	--with-PATH_SENDMAIL=/usr/sbin/sendmail
 
-%{__make} OPTIMIZER="$RPM_OPT_FLAGS"
+%{__make} OPTIMIZER="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
