@@ -217,39 +217,36 @@ rm -rf $RPM_BUILD_ROOT
 %post libs -p /sbin/ldconfig
 %postun libs -p /sbin/ldconfig
 
-%preun client
-%_preun_service hylafax
-
-
-%post client
-%_post_service hylafax
-%{_sbindir}/faxsetup -client
+#%preun client
+#%_preun_service hylafax
+#
+#
+#%post client
+#%_post_service hylafax
+#%{_sbindir}/faxsetup -client
 
 %post server
-if [ $1 = 1 ] ; then /sbin/chkconfig --add hylafax; fi
+/sbin/chkconfig --add hylafax
+if [ -f /var/lock/subsys/hylafax ]; then
+	/etc/rc.d/init.d/hylafax restart
+else
+	echo "Run \"/etc/rc.d/init.d/hylafax start\" to start hylafax daemons." >&2
+fi
 
-%_post_service hylafax
-
-# Adding faxgetty entry to %{_sysconfdir}/inittab
-logger adding FaxGetty entry to %{_sysconfdir}/inittab
 cat %{_sysconfdir}/inittab | grep -i "faxgetty entry" || \
 echo -e "# FaxGetty Entry\n#t0:23:respawn:%{_sbindir}/faxgetty ttyS0" >> %{_sysconfdir}/inittab
-
-echo "Please run \"%{_sbindir}/faxsetup -server\" to configure your fax server"
-
+echo "Please check if new fax entry in %{_sysconfdir}/inittab is correct."
+echo "Run \"%{_sbindir}/faxsetup -server\" to configure your fax server"
+echo "Run \"/sbin/init q\" to start faxgetty"
 
 %preun server
-%_preun_service hylafax
-if [ $1 = 0 ] ; then
-	# Removing faxgetty entries in %{_sysconfdir}/inittab
+if [ "$1" = "0" ] ; then
+	if [ -f /var/lock/subsys/hylafax ]; then
+		/etc/rc.d/init.d/hylafax stop >&2
+	fi
 	perl -pi -e 's!^.*faxgetty.*$!!g' %{_sysconfdir}/inittab > %{_sysconfdir}/inittab.$$
 	/sbin/init q
 fi
-
-#%postun server
-#if [ $1 = 2 ]; then	/sbin/service hylafax condrestart >/dev/null 2>&1; fi
-
-
 
 %files 
 %defattr(644,root,root,755)
