@@ -15,6 +15,7 @@ Source7:	%{name}-init
 Source8:	%{name}-hyla.conf
 Patch0:		%{name}-no_libgl_man.patch
 Patch1:		%{name}-topmargin.patch
+Patch2:		%{name}-new-libtiff.patch
 URL:		http://www.hylafax.org/
 BuildRequires:	libjpeg-devel
 BuildRequires:	libtiff-devel
@@ -146,6 +147,7 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 %setup -q -n %{name}-%{version} -a 1 -a 2 -a 3 -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 ./configure \
