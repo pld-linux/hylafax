@@ -150,7 +150,7 @@ This is development package for HylaFAX libraries.
 Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 
 %prep
-%setup -q -n %{name}-%{version} -a 1 -a 2 -a 3 -q
+%setup -q -a 1 -a 2 -a 3 -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
