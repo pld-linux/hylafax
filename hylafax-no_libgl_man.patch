@@ -1,0 +1,60 @@
+Only in hylafax-4.1: hylafax-no_afm.patch
+Only in hylafax-4.1: hylafax_4.1.1-1.diff
+diff -ur hylafax-4.1.orig/man/Makefile.in hylafax-4.1/man/Makefile.in
+--- hylafax-4.1.orig/man/Makefile.in	Mon Jun  4 05:57:23 2001
++++ hylafax-4.1/man/Makefile.in	Mon Apr 22 20:55:07 2002
+@@ -56,7 +56,6 @@
+ 	cman.apps/faxstat.1	\
+ 	cman.apps/sendfax.1	\
+ 	cman.apps/sendpage.1	\
+-	cman.apps/sgi2fax.1	\
+ 	cman.apps/textfmt.1
+ MANCFILE=cman.files/pagesizes.4f\
+ 	cman.files/typerules.4f
+@@ -150,7 +149,6 @@
+ cman.apps/faxstat.1::	${SRCDIR}/faxstat.1;	${MANCVT}
+ cman.apps/sendfax.1::	${SRCDIR}/sendfax.1;	${MANCVT}
+ cman.apps/sendpage.1::	${SRCDIR}/sendpage.1;	${MANCVT}
+-cman.apps/sgi2fax.1::	${SRCDIR}/sgi2fax.1;	${MANCVT}
+ cman.apps/textfmt.1::	${SRCDIR}/textfmt.1;	${MANCVT}
+ cman.files/pagesizes.4f:: ${SRCDIR}/pagesizes.4f; ${MANCVT}
+ cman.files/typerules.4f:: ${SRCDIR}/typerules.4f; ${MANCVT}
+diff -ur hylafax-4.1.orig/man/hylafax-client.1 hylafax-4.1/man/hylafax-client.1
+--- hylafax-4.1.orig/man/hylafax-client.1	Mon May 21 04:54:17 2001
++++ hylafax-4.1/man/hylafax-client.1	Mon Apr 22 20:53:00 2002
+@@ -671,7 +671,6 @@
+ ${BIN}/faxmail	for converting email to \*(Ps
+ ${BIN}/faxrm	for removing queued jobs
+ ${BIN}/faxstat	for facsimile server status
+-${LIBEXEC}/sgi2fax	\s-1SGI\s+1 image file converter
+ ${LIBEXEC}/textfmt	\s-1ASCII\s+1 text converter
+ ${LIBDATA}/typerules	file type and conversion rules
+ ${LIBDATA}/pagesizes	page size database
+@@ -687,7 +686,6 @@
+ .IR faxmail (1),
+ .IR faxrm (1),
+ .IR faxstat (1),
+-.IR sgi2fax (1),
+ .IR faxq (${MANNUM1_8}),
+ .IR viewfax (1),
+ .IR hylafax-server (${MANNUM4_5}),
+diff -ur hylafax-4.1.orig/man/pagesizes.4f hylafax-4.1/man/pagesizes.4f
+--- hylafax-4.1.orig/man/pagesizes.4f	Tue Feb  6 04:54:12 2001
++++ hylafax-4.1/man/pagesizes.4f	Mon Apr 22 20:54:51 2002
+@@ -126,5 +126,4 @@
+ .IR faxmail (1),
+ .IR faxstat (1),
+ .IR sendfax (1),
+-.IR sgi2fax (1),
+ .IR textfmt (1).
+diff -ur hylafax-4.1.orig/man/sendfax.1 hylafax-4.1/man/sendfax.1
+--- hylafax-4.1.orig/man/sendfax.1	Mon Jul  2 00:02:02 2001
++++ hylafax-4.1/man/sendfax.1	Mon Apr 22 20:52:03 2002
+@@ -921,7 +921,6 @@
+ .IR faxmail (1),
+ .IR faxrm (1),
+ .IR faxstat (1),
+-.IR sgi2fax (1),
+ .IR textfmt (1),
+ .IR hfaxd (${MANNUM1_8}),
+ .IR hylafax-server (${MANNUM4_5}),
