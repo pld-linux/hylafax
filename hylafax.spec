@@ -245,7 +245,7 @@ rm -rf $RPM_BUILD_ROOT
 #
 #%post client
 #%_post_service hylafax
-#%{_sbindir}/faxsetup -client
+#%%{_sbindir}/faxsetup -client
 
 %post server
 /sbin/chkconfig --add hylafax
