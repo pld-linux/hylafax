@@ -19,7 +19,7 @@ URL:		http://www.hylafax.org/
 BuildRequires:	libjpeg-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	zlib-devel
-BuildRequires:  gcc-c++
+BuildRequires:	gcc-c++
 BuildRequires:	libtiff-progs
 Requires:	%{name}-libs = %{version}
 Requires:	ghostscript
@@ -183,7 +183,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.
 	SPOOL=$RPM_BUILD_ROOT%{faxspool} \
 	MAN=$RPM_BUILD_ROOT%{_mandir} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	INSTALL_ROOT=$RPM_BUILD_ROOT 	
+	INSTALL_ROOT=$RPM_BUILD_ROOT
 
 bzip2 -dc %{SOURCE4} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
