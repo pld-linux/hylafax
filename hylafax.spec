@@ -2,7 +2,7 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1.5
-Release:	0.2
+Release:	0.3
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
@@ -24,6 +24,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	libtiff-progs
 Requires:	%{name}-libs = %{version}
 Requires:	ghostscript
+Requires:	ghostscript-fonts-std
 Requires:	libtiff-progs
 Conflicts:	mgetty-sendfax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -305,7 +306,7 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/hylafax
 %dir %{faxspool}
 %dir %{faxspool}/bin
-%dir %{faxspool}/client
+%attr(755,uucp,uucp) %dir %{faxspool}/client
 %dir %{faxspool}/config
 %dir %{faxspool}/dev
 %dir %{faxspool}%{_sysconfdir}
@@ -329,7 +330,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/cover.templ
 %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/dialrules*
 
-%{faxspool}/bin/*
+%attr(755,root,root) %{faxspool}/bin/*
 %{faxspool}/config/*
 
 %attr(755,root,root) %{_bindir}/hfaxd
