@@ -2,18 +2,20 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1
-Release:	0.2
+Release:	0.3
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 Source2:	%{name}-defaults.tar.gz
 Source3:	%{name}-dialrules_extras.tar.gz
+Source4:	%{name}-man-pages.tar.bz2
 Source6:	%{name}-logrotate
 Source7:	%{name}-init
 Source8:	%{name}-hyla.conf
 Patch1:		%{name}-dso.patch
 Patch2:		%{name}-dso.chris.patch
+Patch3:		%{name}-no_libgl_man.patch
 Patch4:		%{name}-rings-cid-passing.patch
 Patch5:		%{name}-mdk.patch
 Patch6:		%{name}-topmargin.patch
@@ -144,6 +146,7 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 %setup -q -n %{name}-%{version} -a 1 -a 2 -a 3 -q
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 %patch4
 %patch5 -p1
 %patch6 -p1
@@ -153,7 +156,7 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 ./configure \
 	--with-DIR_BIN=%{_bindir} \
 	--with-DIR_SBIN=%{_sbindir} \
-	--with-DIR_LIBEXEC=%{_sbindir} \
+	--with-DIR_LIBEXEC=%{_bindir} \
 	--with-DIR_LIBDATA=%{_datadir}/fax \
 	--with-DIR_MAN=%{_mandir} \
 	--with-DIR_SPOOL=%{faxspool} \
@@ -178,7 +181,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir},%{_datadir}/fax} \
 	$RPM_BUILD_ROOT%{faxspool}/{etc,config/defaults,bin} \
-	$RPM_BUILD_ROOT%{_mandir}/{man1,man5,man8}
+	$RPM_BUILD_ROOT%{_mand[1~ir}/{man1,man5,man8}
 
 %{__make} install -e \
 	FAXUSER=`id -u` \
@@ -192,6 +195,9 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.
 	SPOOL=$RPM_BUILD_ROOT%{faxspool} \
 	MAN=$RPM_BUILD_ROOT%{_mandir} \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
+
+bzip2 -dc %{SOURCE4} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
+
 
 # some hacks
 perl -pi -e 's!%{_prefix}%{_sysconfdir}/inetd.conf!%{_sysconfdir}/inetd.conf!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
