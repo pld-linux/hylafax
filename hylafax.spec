@@ -2,7 +2,7 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1.8
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
@@ -26,6 +26,7 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtiff-progs
+BuildRequires:	sed >= 4.1
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	ghostscript
@@ -62,7 +63,7 @@ Group:		Applications/Communications
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	grep
 Requires(post):	textutils
-Requires(preun):	perl
+Requires(preun):	sed >= 4.1
 Requires(preun):	/sbin/telinit
 Requires:	%{name} = %{version}-%{release}
 
@@ -201,8 +202,8 @@ install -d $RPM_BUILD_ROOT/etc/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} 
 bzip2 -dc %{SOURCE4} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
 # some hacks
-perl -pi -e 's!%{_prefix}%{_sysconfdir}/inetd.conf!%{_sysconfdir}/inetd.conf!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
-perl -pi -e 's!%{_libdir}/aliases!%{_sysconfdir}/aliases!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
+sed -i -e 's!%{_prefix}%{_sysconfdir}/inetd.conf!%{_sysconfdir}/inetd.conf!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
+sed -i -e 's!%{_libdir}/aliases!%{_sysconfdir}/aliases!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
 
 # init
 install %{SOURCE7} $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
@@ -275,7 +276,7 @@ if [ "$1" = "0" ] ; then
 		/etc/rc.d/init.d/hylafax stop >&2
 	fi
 	/sbin/chkconfig --del hylafax
-	perl -pi -e 's!^.*faxgetty.*$!!g' /etc/inittab > /etc/inittab.$$
+	sed -i -e 's!^.*faxgetty.*$!!' /etc/inittab
 	/sbin/telinit q
 fi
 
