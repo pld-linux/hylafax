@@ -27,7 +27,7 @@ Requires:	libtiff-progs
 Conflicts:	mgetty-sendfax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define faxspool /var/spool/fax
+%define		faxspool	/var/spool/fax
 
 %description
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -53,6 +53,11 @@ Summary:	The files for the HylaFAX(tm) fax server
 Summary(pl):	Pliki dla serwera faksów HylaFAX(tm)
 Group:		Applications/Communications
 Requires:	%{name} = %{version}
+Requires(post,preun):	/sbin/chkconfig
+Requires(post):	grep
+Requires(post):	textutils
+Requires(preun):	perl
+Requires(preun):	/sbin/telinit
 
 %description server
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -187,11 +192,9 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.
 
 bzip2 -dc %{SOURCE4} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
-
 # some hacks
 perl -pi -e 's!%{_prefix}%{_sysconfdir}/inetd.conf!%{_sysconfdir}/inetd.conf!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
 perl -pi -e 's!%{_libdir}/aliases!%{_sysconfdir}/aliases!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
-
 
 # init
 install %{SOURCE7} $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
@@ -263,6 +266,7 @@ if [ "$1" = "0" ] ; then
 	if [ -f /var/lock/subsys/hylafax ]; then
 		/etc/rc.d/init.d/hylafax stop >&2
 	fi
+	/sbin/chkconfig --del hylafax
 	perl -pi -e 's!^.*faxgetty.*$!!g' %{_sysconfdir}/inittab > %{_sysconfdir}/inittab.$$
 	/sbin/telinit q
 fi
