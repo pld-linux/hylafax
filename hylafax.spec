@@ -1,4 +1,5 @@
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
+Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1
 Release:	0.1
@@ -6,7 +7,6 @@ License:	distributable
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
-URL:		http://www.hylafax.org/
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 Source2:	%{name}-defaults.tar.gz
@@ -20,12 +20,12 @@ Patch4:		%{name}-rings-cid-passing.patch
 Patch5:		%{name}-mdk.patch
 Patch6:		%{name}-topmargin.patch
 Patch7:		%{name}-priority.patch
+URL:		http://www.hylafax.org/
 BuildRequires:	libjpeg-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	zlib-devel
-Requires:	ghostscript
-Requires:	libtiff
 Requires:	%{name}-libs = %{version}
+Requires:	ghostscript
 Requires:	libtiff-progs
 Conflicts:	mgetty-sendfax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -37,17 +37,27 @@ HylaFAX(tm) is a sophisticated enterprise-strength fax package for
 class 1 and 2 fax modems on unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
-implementations exist for a number of platforms including windows.
+implementations exist for a number of platforms including Windows.
 
 You need this package if you are going to install hylafax-client
 and/or hylafax server.
 
-%package 	server
-Summary:	The files for the HylaFAX(tm) fax server.
+%description -l pl
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
+1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
+innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
+platform, w tym Windows.
+
+Ten pakiet zawiera pliki wspólne dla serwera i klienta HylaFAX.
+
+%package server
+Summary:	The files for the HylaFAX(tm) fax server
+Summary(pl):	Pliki dla serwera faksów HylaFAX(tm)
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
-Requires:	%{name}
+Requires:	%{name} = %{version}
 
 %description server
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -58,12 +68,16 @@ implementations exist for a number of platforms including windows.
 
 This is the server portion of HylaFAX.
 
-%package 	client
-Summary:	The files for the HylaFAX(tm) fax client.
+%description server -l pl
+Ten pakiet zawiera czê¶æ serwerow± HylaFAX.
+
+%package client
+Summary:	The files for the HylaFAX(tm) fax client
+Summary(pl):	Pliki dla klienta faksów HylaFAX(tm)
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
-Requires:	%{name}
+Requires:	%{name} = %{version}
 
 %description client
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -74,11 +88,20 @@ implementations exist for a number of platforms including windows.
 
 This is the client portion of HylaFAX.
 
-%package 	libs
+%description client -l pl
+Ten pakiet zawiera czê¶æ klienck± HylaFAX.
+
+%package libs
 Summary:	Hylafax libraries
-Group:		Applications/Communications
-Group(de):	Applikationen/Kommunikation
-Group(pl):	Aplikacje/Komunikacja
+Summary(pl):	Biblioteki HylaFAX
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 
 %description libs
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -87,13 +110,22 @@ services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
 implementations exist for a number of platforms including windows.
 
-This is the shared librairies of HylaFAX.
+This package contains the shared libraries of HylaFAX.
 
-%package	devel
-Summary:	Hylafax libraries
-Group:		Applications/Communications
-Group(de):	Applikationen/Kommunikation
-Group(pl):	Aplikacje/Komunikacja
+%description libs -l pl
+Ten pakiet zawiera biblioteki wspó³dzielone HylaFAX
+
+%package devel
+Summary:	Hylafax libraries development part
+Summary(pl):	Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX
+Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-libs = %{version}
 
 %description devel
@@ -103,7 +135,10 @@ services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
 implementations exist for a number of platforms including windows.
 
-This is the shared librairies of HylaFAX.
+This is development package for HylaFAX libraries.
+
+%description devel -l pl
+Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 
 %prep
 %setup -q -n %{name}-%{version} -a 1 -a 2 -a 3 -q
@@ -140,13 +175,10 @@ This is the shared librairies of HylaFAX.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d}
-install -d $RPM_BUILD_ROOT%{_bindir}
-install -d $RPM_BUILD_ROOT%{_sbindir}
-install -d $RPM_BUILD_ROOT%{_libdir}
-install -d $RPM_BUILD_ROOT%{_datadir}/fax
-install -d $RPM_BUILD_ROOT%{faxspool}/{etc,config/defaults,bin}
-install -d $RPM_BUILD_ROOT%{_mandir}/{man1,man5,man8}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} \
+	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir},%{_datadir}/fax} \
+	$RPM_BUILD_ROOT%{faxspool}/{etc,config/defaults,bin} \
+	$RPM_BUILD_ROOT%{_mandir}/{man1,man5,man8}
 
 %{__make} install -e \
 	FAXUSER=`id -u` \
@@ -167,35 +199,30 @@ perl -pi -e 's!%{_libdir}/aliases!%{_sysconfdir}/aliases!g' $RPM_BUILD_ROOT%{_sb
 
 
 # init
-cat %{SOURCE7} > $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
-chmod 755 $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
+install %{SOURCE7} $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
 
 # defaults 
 install defaults/* $RPM_BUILD_ROOT%{faxspool}/config/defaults/
 
 # hyla.conf
-cat %{SOURCE8} > $RPM_BUILD_ROOT%{_datadir}/fax/hyla.conf
+install %{SOURCE8} $RPM_BUILD_ROOT%{_datadir}/fax/hyla.conf
 
 # cron entries
-install -m 755 hylafax_daily.cron  $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/hylafax
-install -m 755 hylafax_hourly.cron $RPM_BUILD_ROOT%{_sysconfdir}/cron.hourly/hylafax
+install hylafax_daily.cron  $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/hylafax
+install hylafax_hourly.cron $RPM_BUILD_ROOT%{_sysconfdir}/cron.hourly/hylafax
 
 # logrotate
-cat %{SOURCE6} > $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/hylafax
+install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/hylafax
 
 # dialrules extras
 install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}%{_sysconfdir}
 
-(cd $RPM_BUILD_ROOT%{faxspool}/bin; ln -s ps2fax.gs ps2fax)
+(cd $RPM_BUILD_ROOT%{faxspool}/bin; ln -sf ps2fax.gs ps2fax)
 
 
 # The Makefile puts the .so file in /usr/sbin. Move them to /usr/lib
-mv $RPM_BUILD_ROOT%{_sbindir}/*.so.* $RPM_BUILD_ROOT%{_libdir}
-mv $RPM_BUILD_ROOT%{_sbindir}/*.so $RPM_BUILD_ROOT%{_libdir}
-
-# put execute permission on .so so that RPM doesn't warn
-chmod +x $RPM_BUILD_ROOT%{_libdir}/lib*.so.*
-chmod +x $RPM_BUILD_ROOT%{_libdir}/lib*.so
+mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so.* $RPM_BUILD_ROOT%{_libdir}
+mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so $RPM_BUILD_ROOT%{_libdir}
 
 # Since now the html doc dir is managed by the doc macro and not installed
 # by HylaFAX, the CVS stuff need to be deleted
@@ -210,16 +237,16 @@ rm -f html/tools/{unquote,man2html}
 rm -f $RPM_BUILD_ROOT%{_sbindir}/{faxsetup.irix,faxsetup.bsdi}
 %endif
 
+gzip -9nf COPYRIGHT README TODO VERSION
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post libs -p /sbin/ldconfig
-%postun libs -p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 #%preun client
 #%_preun_service hylafax
-#
 #
 #%post client
 #%_post_service hylafax
@@ -237,7 +264,7 @@ cat %{_sysconfdir}/inittab | grep -i "faxgetty entry" || \
 echo -e "# FaxGetty Entry\n#t0:23:respawn:%{_sbindir}/faxgetty ttyS0" >> %{_sysconfdir}/inittab
 echo "Please check if new fax entry in %{_sysconfdir}/inittab is correct."
 echo "Run \"%{_sbindir}/faxsetup -server\" to configure your fax server"
-echo "Run \"/sbin/init q\" to start faxgetty"
+echo "Run \"/sbin/telinit q\" to start faxgetty"
 
 %preun server
 if [ "$1" = "0" ] ; then
@@ -245,15 +272,15 @@ if [ "$1" = "0" ] ; then
 		/etc/rc.d/init.d/hylafax stop >&2
 	fi
 	perl -pi -e 's!^.*faxgetty.*$!!g' %{_sysconfdir}/inittab > %{_sysconfdir}/inittab.$$
-	/sbin/init q
+	/sbin/telinit q
 fi
 
 %files 
 %defattr(644,root,root,755)
-%doc README TODO VERSION COPYRIGHT
+%doc README.gz TODO.gz VERSION.gz
 %attr(755,root,root) %{_sbindir}/faxsetup
 %attr(755,root,root) %{_sbindir}/faxsetup.linux
-
+%dir %{_datadir}/fax
 
 %files client
 %defattr(644,root,root,755)
@@ -271,13 +298,13 @@ fi
 %{_datadir}/fax/hyla.conf
 %{_mandir}/man1/*
 
-
 %files server
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/hylafax
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.daily/hylafax
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.hourly/hylafax
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/hylafax
+%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.daily/hylafax
+%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.hourly/hylafax
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/hylafax
+# TODO: put proper perms here...
 %attr(-,uucp,uucp) %dir %{faxspool}
 %attr(-,uucp,uucp) %dir %{faxspool}/bin
 %attr(-,uucp,uucp) %dir %{faxspool}/client
@@ -346,13 +373,12 @@ fi
 %{_mandir}/man5/* 
 %{_mandir}/man8/*
 
-%files devel
-%defattr(644,root,root,755)
-%doc html COPYRIGHT
-%{_libdir}/*.so
-
-
 %files libs
 %defattr(644,root,root,755)
-%doc COPYRIGHT
-%{_libdir}/*.so.*
+%doc COPYRIGHT.gz
+%attr(755,root,root) %{_libdir}/*.so.*.*
+
+%files devel
+%defattr(644,root,root,755)
+%doc html
+%attr(755,root,root) %{_libdir}/*.so
