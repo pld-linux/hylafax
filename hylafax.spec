@@ -2,7 +2,7 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1.8
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
@@ -20,13 +20,14 @@ Source7:	%{name}-init
 Source8:	%{name}-hyla.conf
 Patch0:		%{name}-no_libgl_man.patch
 Patch1:		%{name}-topmargin.patch
+Patch2:		%{name}-pic.patch
 URL:		http://www.hylafax.org/
 BuildRequires:	libjpeg-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
-BuildRequires:	zlib-devel
-BuildRequires:	gcc-c++
 BuildRequires:	libtiff-progs
-Requires:	%{name}-libs = %{version}
+BuildRequires:	zlib-devel
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	ghostscript
 Requires:	ghostscript-fonts-std
 Requires:	libtiff-progs
@@ -58,12 +59,12 @@ Ten pakiet zawiera pliki wspólne dla serwera i klienta HylaFAX.
 Summary:	The files for the HylaFAX(tm) fax server
 Summary(pl):	Pliki dla serwera faksów HylaFAX(tm)
 Group:		Applications/Communications
-Requires:	%{name} = %{version}
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	grep
 Requires(post):	textutils
 Requires(preun):	perl
 Requires(preun):	/sbin/telinit
+Requires:	%{name} = %{version}-%{release}
 
 %description server
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -87,7 +88,7 @@ Ten pakiet zawiera czê¶æ serwerow± HylaFAX.
 Summary:	The files for the HylaFAX(tm) fax client
 Summary(pl):	Pliki dla klienta faksów HylaFAX(tm)
 Group:		Applications/Communications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description client
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -134,7 +135,7 @@ Ten pakiet zawiera biblioteki wspó³dzielone HylaFAX.
 Summary:	Hylafax libraries development part
 Summary(pl):	Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX
 Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 This is development package for HylaFAX libraries.
@@ -146,8 +147,12 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 %setup -q -a1 -a2 -a3
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
+# set dummy GCOPTS,GCXXOPTS to avoid adding "-g"
+GCOPTS=" " \
+GCXXOPTS=" " \
 ./configure \
 	--with-DIR_BIN=%{_bindir} \
 	--with-DIR_SBIN=%{_sbindir} \
@@ -169,7 +174,8 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 	--with-SCRIPT_SH=/bin/bash \
 	--with-PATH_SENDMAIL=/usr/sbin/sendmail
 
-%{__make} OPTIMIZER="%{rpmcflags}"
+%{__make} \
+	OPTIMIZER="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
