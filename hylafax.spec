@@ -207,7 +207,7 @@ install hylafax_daily.cron  $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/hylafax
 install hylafax_hourly.cron $RPM_BUILD_ROOT%{_sysconfdir}/cron.hourly/hylafax
 
 # logrotate
-install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/hylafax
+install %{SOURCE6} $RPM_BUILD_ROOT/etc/logrotate.d/hylafax
 
 # dialrules extras
 install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}%{_sysconfdir}
@@ -295,7 +295,7 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/hylafax
 %attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.daily/hylafax
 %attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.hourly/hylafax
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/hylafax
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/hylafax
 %dir %{faxspool}
 %dir %{faxspool}/bin
 %dir %{faxspool}/client
