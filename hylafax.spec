@@ -47,7 +47,7 @@ You need this package if you are going to install hylafax-client
 and/or hylafax server.
 
 %description -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, dostêpne s± implementacje klientów na wiele
@@ -76,7 +76,7 @@ implementations exist for a number of platforms including Windows.
 This is the server portion of HylaFAX.
 
 %description server -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
@@ -100,7 +100,7 @@ implementations exist for a number of platforms including Windows.
 This is the client portion of HylaFAX.
 
 %description client -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
@@ -123,7 +123,7 @@ implementations exist for a number of platforms including Windows.
 This package contains the shared libraries of HylaFAX.
 
 %description libs -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
