@@ -2,7 +2,7 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1.5
-Release:	0.1
+Release:	0.2
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
@@ -165,7 +165,8 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 	--with-PAGESIZE=A4 \
 	--with-SYSVINIT=/etc/rc.d/init.d/hylafax \
 	--with-INTERACTIVE=no \
-	--with-SCRIPT_SH=/bin/sh
+	--with-SCRIPT_SH=/bin/bash \
+	--with-PATH_SENDMAIL=/usr/sbin/sendmail
 
 %{__make} OPTIMIZER="$RPM_OPT_FLAGS"
 
@@ -184,7 +185,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.
 	BIN=$RPM_BUILD_ROOT%{_bindir} \
 	SBIN=$RPM_BUILD_ROOT%{_sbindir} \
 	LIBDATA=$RPM_BUILD_ROOT%{_datadir}/fax \
-	LIBEXEC=$RPM_BUILD_ROOT%{_sbindir} \
+	LIBEXEC=$RPM_BUILD_ROOT%{_bindir} \
 	SPOOL=$RPM_BUILD_ROOT%{faxspool} \
 	MAN=$RPM_BUILD_ROOT%{_mandir} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
@@ -287,7 +288,7 @@ fi
 %attr(755,root,root) %{_bindir}/faxcover
 %attr(755,root,root) %{_bindir}/faxmail
 %attr(755,root,root) %{_bindir}/faxrm
-%attr(755,root,root) %{_sbindir}/textfmt
+%attr(755,root,root) %{_bindir}/textfmt
 %{_datadir}/fax/pagesizes
 %{_datadir}/fax/faxcover.ps
 %{_datadir}/fax/typerules
@@ -329,7 +330,7 @@ fi
 %{faxspool}/bin/*
 %{faxspool}/config/*
 
-%attr(755,root,root) %{_sbindir}/hfaxd
+%attr(755,root,root) %{_bindir}/hfaxd
 %attr(755,root,root) %{_sbindir}/hylafax
 %attr(755,root,root) %{_sbindir}/faxdeluser
 %attr(755,root,root) %{_sbindir}/faxadduser
@@ -341,19 +342,20 @@ fi
 %attr(755,root,root) %{_sbindir}/faxanswer
 %attr(755,root,root) %{_sbindir}/faxconfig
 %attr(755,root,root) %{_sbindir}/faxcron
-%attr(755,root,root) %{_sbindir}/faxgetty
+%attr(755,root,root) %{_bindir}/faxgetty
 %attr(755,root,root) %{_sbindir}/faxinfo
+%attr(755,root,root) %{_sbindir}/faxlock
 %attr(755,root,root) %{_sbindir}/faxmodem
 %attr(755,root,root) %{_sbindir}/faxmsg
 %attr(755,root,root) %{_sbindir}/faxq
 %attr(755,root,root) %{_sbindir}/faxqclean
 %attr(755,root,root) %{_sbindir}/faxquit
-%attr(755,root,root) %{_sbindir}/faxsend
+%attr(755,root,root) %{_bindir}/faxsend
 %attr(755,root,root) %{_sbindir}/faxstate
 %attr(755,root,root) %{_sbindir}/faxwatch
-%attr(755,root,root) %{_sbindir}/lockname
-%attr(755,root,root) %{_sbindir}/ondelay
-%attr(755,root,root) %{_sbindir}/pagesend
+%attr(755,root,root) %{_bindir}/lockname
+%attr(755,root,root) %{_bindir}/ondelay
+%attr(755,root,root) %{_bindir}/pagesend
 %attr(755,root,root) %{_sbindir}/probemodem
 %attr(755,root,root) %{_sbindir}/recvstats
 %attr(755,root,root) %{_sbindir}/tagtest
