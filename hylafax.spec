@@ -2,7 +2,7 @@ Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
 Name:		hylafax
 Version:	4.1.6
-Release:	0.1
+Release:	0.2
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
@@ -47,7 +47,7 @@ and/or hylafax server.
 
 %description -l pl
 HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
-1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+1 i 2 na systemach uniksowych. Dostarcza serwisy kolejkuj±ce i wiele
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
 platform, w tym Windows.
@@ -76,7 +76,7 @@ This is the server portion of HylaFAX.
 
 %description server -l pl
 HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
-1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+1 i 2 na systemach uniksowych. Dostarcza serwisy kolejkuj±ce i wiele
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
 platform, w tym Windows.
@@ -100,7 +100,7 @@ This is the client portion of HylaFAX.
 
 %description client -l pl
 HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
-1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+1 i 2 na systemach uniksowych. Dostarcza serwisy kolejkuj±ce i wiele
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
 platform, w tym Windows.
@@ -123,12 +123,12 @@ This package contains the shared libraries of HylaFAX.
 
 %description libs -l pl
 HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faxmodemów klasy
-1 i 2 na systemach uniksowych. Daje serwisy kolejkuj±ce i wiele
+1 i 2 na systemach uniksowych. Dostarcza serwisy kolejkuj±ce i wiele
 narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
 innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
 platform, w tym Windows.
 
-Ten pakiet zawiera biblioteki wspó³dzielone HylaFAX
+Ten pakiet zawiera biblioteki wspó³dzielone HylaFAX.
 
 %package devel
 Summary:	Hylafax libraries development part
@@ -157,7 +157,8 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 ./configure \
 	--with-DIR_BIN=%{_bindir} \
 	--with-DIR_SBIN=%{_sbindir} \
-	--with-DIR_LIBEXEC=%{_bindir} \
+	--with-DIR_LIBEXEC=%{_sbindir} \
+	--with-DIR_LIBDIR=%{_libdir} \
 	--with-DIR_LIBDATA=%{_datadir}/fax \
 	--with-DIR_MAN=%{_mandir} \
 	--with-DIR_SPOOL=%{faxspool} \
@@ -178,7 +179,7 @@ Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} \
+install -d $RPM_BUILD_ROOT/etc/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir},%{_datadir}/fax} \
 	$RPM_BUILD_ROOT%{faxspool}/{etc,config/defaults,bin} \
 	$RPM_BUILD_ROOT%{_mandir}/{man1,man5,man8}
@@ -191,7 +192,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{logrotate.d,cron.hourly,cron.daily,rc.
 	BIN=$RPM_BUILD_ROOT%{_bindir} \
 	SBIN=$RPM_BUILD_ROOT%{_sbindir} \
 	LIBDATA=$RPM_BUILD_ROOT%{_datadir}/fax \
-	LIBEXEC=$RPM_BUILD_ROOT%{_bindir} \
+	LIBEXEC=$RPM_BUILD_ROOT%{_sbindir} \
 	SPOOL=$RPM_BUILD_ROOT%{faxspool} \
 	MAN=$RPM_BUILD_ROOT%{_mandir} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
@@ -213,14 +214,14 @@ install defaults/* $RPM_BUILD_ROOT%{faxspool}/config/defaults/
 install %{SOURCE8} $RPM_BUILD_ROOT%{_datadir}/fax/hyla.conf
 
 # cron entries
-install hylafax_daily.cron  $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/hylafax
-install hylafax_hourly.cron $RPM_BUILD_ROOT%{_sysconfdir}/cron.hourly/hylafax
+install hylafax_daily.cron  $RPM_BUILD_ROOT/etc/cron.daily/hylafax
+install hylafax_hourly.cron $RPM_BUILD_ROOT/etc/cron.hourly/hylafax
 
 # logrotate
 install %{SOURCE6} $RPM_BUILD_ROOT/etc/logrotate.d/hylafax
 
 # dialrules extras
-install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}%{_sysconfdir}
+install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}/etc
 
 (cd $RPM_BUILD_ROOT%{faxspool}/bin; ln -sf ps2fax.gs ps2fax)
 
@@ -262,9 +263,9 @@ else
 	echo "Run \"/etc/rc.d/init.d/hylafax start\" to start hylafax daemons." >&2
 fi
 
-cat %{_sysconfdir}/inittab | grep -i "faxgetty entry" || \
-echo -e "# FaxGetty Entry\n#t0:23:respawn:%{_sbindir}/faxgetty ttyS0" >> %{_sysconfdir}/inittab
-echo "Please check if new fax entry in %{_sysconfdir}/inittab is correct."
+cat /etc/inittab | grep -i "faxgetty entry" || \
+echo -e "# FaxGetty Entry\n#t0:23:respawn:%{_sbindir}/faxgetty ttyS0" >> /etc/inittab
+echo "Please check if new fax entry in /etc/inittab is correct."
 echo "Run \"%{_sbindir}/faxsetup -server\" to configure your fax server"
 echo "Run \"/sbin/telinit q\" to start faxgetty"
 
@@ -274,7 +275,7 @@ if [ "$1" = "0" ] ; then
 		/etc/rc.d/init.d/hylafax stop >&2
 	fi
 	/sbin/chkconfig --del hylafax
-	perl -pi -e 's!^.*faxgetty.*$!!g' %{_sysconfdir}/inittab > %{_sysconfdir}/inittab.$$
+	perl -pi -e 's!^.*faxgetty.*$!!g' /etc/inittab > /etc/inittab.$$
 	/sbin/telinit q
 fi
 
@@ -294,25 +295,27 @@ fi
 %attr(755,root,root) %{_bindir}/faxcover
 %attr(755,root,root) %{_bindir}/faxmail
 %attr(755,root,root) %{_bindir}/faxrm
-%attr(755,root,root) %{_bindir}/textfmt
+%attr(755,root,root) %{_sbindir}/edit-faxcover
+%attr(755,root,root) %{_sbindir}/textfmt
+%attr(755,root,root) %{_sbindir}/faxlock
 %{_datadir}/fax/pagesizes
-%{_datadir}/fax/faxcover.ps
-%{_datadir}/fax/typerules
-%{_datadir}/fax/hyla.conf
+%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/faxcover.ps
+%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/typerules
+%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/hyla.conf
 %{_mandir}/man1/*
 
 %files server
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/hylafax
-%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.daily/hylafax
-%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cron.hourly/hylafax
+%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) /etc/cron.daily/hylafax
+%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) /etc/cron.hourly/hylafax
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/hylafax
 %dir %{faxspool}
 %dir %{faxspool}/bin
 %attr(755,uucp,uucp) %dir %{faxspool}/client
 %dir %{faxspool}/config
 %dir %{faxspool}/dev
-%dir %{faxspool}%{_sysconfdir}
+%dir %{faxspool}/etc
 %attr(755,uucp,uucp) %dir %{faxspool}/info
 %attr(755,uucp,uucp) %dir %{faxspool}/log
 %attr(755,uucp,uucp) %dir %{faxspool}/recvq
@@ -326,17 +329,17 @@ fi
 
 %attr(600,uucp,uucp) %{faxspool}/FIFO
 %{faxspool}/COPYRIGHT
-%attr(644,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/xferfaxlog
-%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/hosts.hfaxd
-%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/lutRS18.pcf
-%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/dpsprinter.ps
-%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/cover.templ
-%config(noreplace) %verify(not size mtime md5) %{faxspool}%{_sysconfdir}/dialrules*
+%attr(644,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/xferfaxlog
+%attr(600,uucp,root) %config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/hosts.hfaxd
+%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/lutRS18.pcf
+%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/dpsprinter.ps
+%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/cover.templ
+%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/dialrules*
 
 %attr(755,root,root) %{faxspool}/bin/*
 %{faxspool}/config/*
 
-%attr(755,root,root) %{_bindir}/hfaxd
+%attr(755,root,root) %{_sbindir}/hfaxd
 %attr(755,root,root) %{_sbindir}/hylafax
 %attr(755,root,root) %{_sbindir}/faxdeluser
 %attr(755,root,root) %{_sbindir}/faxadduser
@@ -348,7 +351,7 @@ fi
 %attr(755,root,root) %{_sbindir}/faxanswer
 %attr(755,root,root) %{_sbindir}/faxconfig
 %attr(755,root,root) %{_sbindir}/faxcron
-%attr(755,root,root) %{_bindir}/faxgetty
+%attr(755,root,root) %{_sbindir}/faxgetty
 %attr(755,root,root) %{_sbindir}/faxinfo
 %attr(755,root,root) %{_sbindir}/faxlock
 %attr(755,root,root) %{_sbindir}/faxmodem
@@ -356,12 +359,12 @@ fi
 %attr(755,root,root) %{_sbindir}/faxq
 %attr(755,root,root) %{_sbindir}/faxqclean
 %attr(755,root,root) %{_sbindir}/faxquit
-%attr(755,root,root) %{_bindir}/faxsend
+%attr(755,root,root) %{_sbindir}/faxsend
 %attr(755,root,root) %{_sbindir}/faxstate
 %attr(755,root,root) %{_sbindir}/faxwatch
-%attr(755,root,root) %{_bindir}/lockname
-%attr(755,root,root) %{_bindir}/ondelay
-%attr(755,root,root) %{_bindir}/pagesend
+%attr(755,root,root) %{_sbindir}/lockname
+%attr(755,root,root) %{_sbindir}/ondelay
+%attr(755,root,root) %{_sbindir}/pagesend
 %attr(755,root,root) %{_sbindir}/probemodem
 %attr(755,root,root) %{_sbindir}/recvstats
 %attr(755,root,root) %{_sbindir}/tagtest
@@ -371,7 +374,7 @@ fi
 %attr(755,root,root) %{_sbindir}/xferfaxstats
 
 %{_datadir}/fax/faxmail.ps
-%{_datadir}/fax/hfaxd.conf
+%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/hfaxd.conf
 
 %{_mandir}/man5/*
 %{_mandir}/man8/*
