@@ -48,11 +48,11 @@ You need this package if you are going to install hylafax-client
 and/or hylafax server.
 
 %description -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
-1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
-narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
-innych ni¿ serwer, dostêpne s± implementacje klientów na wiele
-platform, w tym na platformê Windows.
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
+klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
+wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
+maszynach innych ni¿ serwer, dostêpne s± implementacje klientów na
+wiele platform, w tym na platformê Windows.
 
 Ten pakiet zawiera pliki wspólne dla serwera i klienta HylaFAX.
 
@@ -60,11 +60,11 @@ Ten pakiet zawiera pliki wspólne dla serwera i klienta HylaFAX.
 Summary:	The files for the HylaFAX(tm) fax server
 Summary(pl):	Pliki dla serwera faksów HylaFAX(tm)
 Group:		Applications/Communications
-Requires(post,preun):	/sbin/chkconfig
 Requires(post):	grep
 Requires(post):	textutils
-Requires(preun):	sed >= 4.1
+Requires(post,preun):	/sbin/chkconfig
 Requires(preun):	/sbin/telinit
+Requires(preun):	sed >= 4.1
 Requires:	%{name} = %{version}-%{release}
 
 %description server
@@ -77,11 +77,11 @@ implementations exist for a number of platforms including Windows.
 This is the server portion of HylaFAX.
 
 %description server -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
-1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
-narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
-innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
-platform, w tym na platformê Windows.
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
+klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
+wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
+maszynach innych ni¿ serwer, implementacje klientów s± dostêpne na
+wiele platform, w tym na platformê Windows.
 
 Ten pakiet zawiera czê¶æ serwerow± HylaFAX.
 
@@ -101,11 +101,11 @@ implementations exist for a number of platforms including Windows.
 This is the client portion of HylaFAX.
 
 %description client -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
-1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
-narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
-innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
-platform, w tym na platformê Windows.
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
+klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
+wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
+maszynach innych ni¿ serwer, implementacje klientów s± dostêpne na
+wiele platform, w tym na platformê Windows.
 
 Ten pakiet zawiera czê¶æ klienck± HylaFAX.
 
@@ -124,11 +124,11 @@ implementations exist for a number of platforms including Windows.
 This package contains the shared libraries of HylaFAX.
 
 %description libs -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów klasy
-1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i wielu
-narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na maszynach
-innych ni¿ serwer, implementacje klientów s± dostêpne na wiele
-platform, w tym na platformê Windows.
+HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
+klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
+wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
+maszynach innych ni¿ serwer, implementacje klientów s± dostêpne na
+wiele platform, w tym na platformê Windows.
 
 Ten pakiet zawiera biblioteki wspó³dzielone HylaFAX.
 
@@ -302,23 +302,23 @@ fi
 %attr(755,root,root) %{_sbindir}/textfmt
 %attr(755,root,root) %{_sbindir}/faxlock
 %{_datadir}/fax/pagesizes
-%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/faxcover.ps
-%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/typerules
-%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/hyla.conf
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/faxcover.ps
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/typerules
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/hyla.conf
 %{_mandir}/man1/*
 
 %files server
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/hylafax
-%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) /etc/cron.daily/hylafax
-%attr(750,root,root) %config(noreplace) %verify(not size mtime md5) /etc/cron.hourly/hylafax
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/hylafax
+%attr(750,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.daily/hylafax
+%attr(750,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.hourly/hylafax
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/hylafax
 %dir %{faxspool}
 %dir %{faxspool}/bin
 %attr(755,uucp,uucp) %dir %{faxspool}/client
 %dir %{faxspool}/config
 %dir %{faxspool}/dev
-%dir %{faxspool}/etc
+%dir %{faxspool}%{_sysconfdir}
 %attr(755,uucp,uucp) %dir %{faxspool}/info
 %attr(755,uucp,uucp) %dir %{faxspool}/log
 %attr(755,uucp,uucp) %dir %{faxspool}/recvq
@@ -332,12 +332,12 @@ fi
 
 %attr(600,uucp,uucp) %{faxspool}/FIFO
 %{faxspool}/COPYRIGHT
-%attr(644,uucp,uucp) %config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/xferfaxlog
-%attr(600,uucp,root) %config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/hosts.hfaxd
-%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/lutRS18.pcf
-%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/dpsprinter.ps
-%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/cover.templ
-%config(noreplace) %verify(not size mtime md5) %{faxspool}/etc/dialrules*
+%attr(644,uucp,uucp) %config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/xferfaxlog
+%attr(600,uucp,root) %config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/hosts.hfaxd
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/lutRS18.pcf
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/dpsprinter.ps
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/cover.templ
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/dialrules*
 
 %attr(755,root,root) %{faxspool}/bin/*
 %{faxspool}/config/*
@@ -377,7 +377,7 @@ fi
 %attr(755,root,root) %{_sbindir}/xferfaxstats
 
 %{_datadir}/fax/faxmail.ps
-%config(noreplace) %verify(not size mtime md5) %{_datadir}/fax/hfaxd.conf
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/hfaxd.conf
 
 %{_mandir}/man5/*
 %{_mandir}/man8/*
