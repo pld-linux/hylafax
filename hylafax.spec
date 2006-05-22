@@ -318,7 +318,7 @@ fi
 %attr(755,uucp,uucp) %dir %{faxspool}/client
 %dir %{faxspool}/config
 %dir %{faxspool}/dev
-%dir %{faxspool}%{_sysconfdir}
+%dir %{faxspool}/etc
 %attr(755,uucp,uucp) %dir %{faxspool}/info
 %attr(755,uucp,uucp) %dir %{faxspool}/log
 %attr(755,uucp,uucp) %dir %{faxspool}/recvq
@@ -332,12 +332,12 @@ fi
 
 %attr(600,uucp,uucp) %{faxspool}/FIFO
 %{faxspool}/COPYRIGHT
-%attr(644,uucp,uucp) %config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/xferfaxlog
-%attr(600,uucp,root) %config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/hosts.hfaxd
-%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/lutRS18.pcf
-%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/dpsprinter.ps
-%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/cover.templ
-%config(noreplace) %verify(not md5 mtime size) %{faxspool}%{_sysconfdir}/dialrules*
+%attr(644,uucp,uucp) %config(noreplace) %verify(not md5 mtime size) %{faxspool}/etc/xferfaxlog
+%attr(600,uucp,root) %config(noreplace) %verify(not md5 mtime size) %{faxspool}/etc/hosts.hfaxd
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}/etc/lutRS18.pcf
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}/etc/dpsprinter.ps
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}/etc/cover.templ
+%config(noreplace) %verify(not md5 mtime size) %{faxspool}/etc/dialrules*
 
 %attr(755,root,root) %{faxspool}/bin/*
 %{faxspool}/config/*
