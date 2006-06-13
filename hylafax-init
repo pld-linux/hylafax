@@ -143,7 +143,7 @@ restart() {
 	faxgettyreset
 }
 
-status() {
+hstatus() {
 	status hfaxd
 	status faxq
 }
@@ -162,7 +162,7 @@ case "$1" in
 	restart
 	;;
   status)
-	status
+	hstatus
 	;;
   condrestart)
 	[ -f /var/lock/subsys/hylafax ] && restart
