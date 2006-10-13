@@ -1,0 +1,4 @@
+- added man pages from Debian
+- removed sgi2fax (requires SGI libdl to build) references from man pages
+- set DIR_LIBEXEC=%{_bindir} (as Debian do)
+- release 0.3
