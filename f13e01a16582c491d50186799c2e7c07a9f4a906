@@ -1,0 +1,4 @@
+- Release: 0.3
+- new hyla.conf
+- Req: ghostscript-fonts-std
+- changed perm. for %{faxspool}/{client,bin}
