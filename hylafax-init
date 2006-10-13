@@ -22,12 +22,12 @@ SPOOL=/var/spool/fax
 . /etc/rc.d/init.d/functions
 
 checkvar() {
-	if [ ! $1 ]; then
-		echo -n -e "HylaFAX ERROR (old setup.cache) please run  faxsetup -server\n"
+	if [ ! "$1" ]; then
+		echo -n -e "HylaFAX ERROR (old setup.cache) please run faxsetup -server\n"
 		exit 1
 	fi
 
-	if [ $1 = "yes"  -o  $1 = "1" ]; then
+	if [ $1 = "yes" -o  $1 = "1" ]; then
 		return 0
 	fi
 	return 1
@@ -41,7 +41,7 @@ check_config()	{
 
 		The file $SPOOL/etc/setup.cache is not present.
 		This probably means the machine has not been setup using the
-		faxsetup(1M) command.  Read the documentation on setting up
+		faxsetup(1M) command. Read the documentation on setting up
 		HylaFAX before you startup a server system.
 
 		EOF
@@ -58,35 +58,33 @@ check_config()	{
 }
 
 start()	{
-	local RETVAL=0
 	local RETVAL2=0
 
 	OPTS="-i hylafax"
-	if checkvar $HFAXD_OLD_PROTOCOL; then
+	if checkvar "$HFAXD_OLD_PROTOCOL"; then
 		OPTS="$OPTS -o 4557"
 		OUT=" OLD Protocol"
 	fi
 
-	if checkvar $HFAXD_SNPP_SERVER; then
+	if checkvar "$HFAXD_SNPP_SERVER"; then
 		OPTS="$OPTS -s snpp"
-		if [ "$OUT" != "" ]; then
+		if [ "$OUT" ]; then
 			OUT="$OUT - "
 		fi
 		OUT="$OUT SNPP"
 	fi
 
-	if [ $OUT ]; then
+	if [ "$OUT" ]; then
 		OUT="( $OUT )"
 	fi
 
-
-	if checkvar $FAXQ_SERVER; then
+	if checkvar "$FAXQ_SERVER"; then
 		msg_starting "HylaFAX queue manager"
 		daemon faxq
 		RETVAL=$?
 	fi
 
-	if checkvar $HFAXD_SERVER; then
+	if checkvar "$HFAXD_SERVER"; then
 		msg="HylaFAX server"
 		[ -n "$OUT" ] && msg="$msg $OUT"
 		msg_starting "HylaFAX server"
@@ -95,11 +93,10 @@ start()	{
 	fi
 
 	[ $RETVAL -eq 0 -a $RETVAL2 -eq 0 ] && touch /var/lock/subsys/hylafax || RETVAL=1
-
-	return $RETVAL
 }
 
 stop() {
+	# stop can't return failure by LSB. so make these vars local
 	local RETVAL=0
 	local RETVAL2=0
 
@@ -111,8 +108,7 @@ stop() {
 	killproc hfaxd
 	RETVAL2=$?
 
-	[ $RETVAL -eq 0 -a $RETVAL2 -eq 0 ] && rm -f /var/lock/subsys/hylafax || RETVAL=1
-	return $RETVAL
+	[ $RETVAL -eq 0 -a $RETVAL2 -eq 0 ] && rm -f /var/lock/subsys/hylafax
 }
 
 faxgettyreset() {
