@@ -1,0 +1,5 @@
+- release 0.2
+- fixed usage of %{_sysconfdir}
+- changed libexec path to %{_sbindir}
+- fixed hosts.hfaxd permissions
+- added missing binaries and other small fixes in %files
