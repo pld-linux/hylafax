@@ -27,6 +27,7 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtiff-progs
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.1
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{version}-%{release}
@@ -65,8 +66,9 @@ Requires(post):	grep
 Requires(post):	textutils
 Requires(post,preun):	/sbin/chkconfig
 Requires(preun):	/sbin/telinit
-Requires(preun):	sed >= 4.1
+Requires(preun):	sed >= 4.0
 Requires:	%{name} = %{version}-%{release}
+Requires:	rc-scripts
 
 %description server
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -163,7 +165,7 @@ GCXXOPTS=" " \
 	--with-DIR_LIBDATA=%{_datadir}/fax \
 	--with-DIR_MAN=%{_mandir} \
 	--with-DIR_SPOOL=%{faxspool} \
-	--with-PATH_GSRIP=%{_bindir}/gs \
+	--with-PATH_GSRIP=/usr/bin/gs \
 	--with-AFM=no \
 	--with-DSO=auto \
 	--with-PATH_VGETTY=/sbin/vgetty \
@@ -176,7 +178,7 @@ GCXXOPTS=" " \
 	--with-SCRIPT_SH=/bin/bash \
 	--with-PATH_SENDMAIL=/usr/sbin/sendmail
 
-%{__make} \
+%{__make} -j1 \
 	OPTIMIZER="%{rpmcflags}"
 
 %install
@@ -210,7 +212,7 @@ sed -i -e 's!%{_libdir}/aliases!%{_sysconfdir}/aliases!g' $RPM_BUILD_ROOT%{_sbin
 install %{SOURCE7} $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
 
 # defaults
-install defaults/* $RPM_BUILD_ROOT%{faxspool}/config/defaults/
+install defaults/* $RPM_BUILD_ROOT%{faxspool}/config/defaults
 
 # hyla.conf
 install %{SOURCE8} $RPM_BUILD_ROOT%{_datadir}/fax/hyla.conf
@@ -225,7 +227,7 @@ install %{SOURCE6} $RPM_BUILD_ROOT/etc/logrotate.d/hylafax
 # dialrules extras
 install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}/etc
 
-(cd $RPM_BUILD_ROOT%{faxspool}/bin; ln -sf ps2fax.gs ps2fax)
+ln -sf ps2fax.gs $RPM_BUILD_ROOT%{faxspool}/bin/ps2fax
 
 # The Makefile puts the .so file in /usr/sbin. Move them to /usr/lib
 #mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so.* $RPM_BUILD_ROOT%{_libdir}
@@ -251,35 +253,31 @@ rm -rf $RPM_BUILD_ROOT
 %postun	libs -p /sbin/ldconfig
 
 %if 0
-#%preun client
-#%_preun_service hylafax
-#
-#%post client
-#%_post_service hylafax
-#%%{_sbindir}/faxsetup -client
+%preun client
+%_preun_service hylafax
+
+%post client
+%_post_service hylafax
+%{_sbindir}/faxsetup -client
 %endif
 
 %post server
 /sbin/chkconfig --add hylafax
-if [ -f /var/lock/subsys/hylafax ]; then
-	/etc/rc.d/init.d/hylafax restart
-else
-	echo "Run \"/etc/rc.d/init.d/hylafax start\" to start hylafax daemons." >&2
-fi
+%service hylafax restart
 
-cat /etc/inittab | grep -i "faxgetty entry" || \
-echo -e "# FaxGetty Entry\n#t0:23:respawn:%{_sbindir}/faxgetty ttyS0" >> /etc/inittab
-echo "Please check if new fax entry in /etc/inittab is correct."
-echo "Run \"%{_sbindir}/faxsetup -server\" to configure your fax server"
-echo "Run \"/sbin/telinit q\" to start faxgetty"
+if [ "$1" = 1 ]; then
+	grep -i "faxgetty entry" /etc/inittab || \
+	echo -e "# FaxGetty Entry\n#t0:23:respawn:%{_sbindir}/faxgetty ttyS0" >> /etc/inittab
+	echo "Please check if new fax entry in /etc/inittab is correct."
+	echo "Run \"%{_sbindir}/faxsetup -server\" to configure your fax server"
+	echo "Run \"/sbin/telinit q\" to start faxgetty"
+fi
 
 %preun server
 if [ "$1" = "0" ] ; then
-	if [ -f /var/lock/subsys/hylafax ]; then
-		/etc/rc.d/init.d/hylafax stop >&2
-	fi
+	%service hylafax stop
 	/sbin/chkconfig --del hylafax
-	sed -i -e 's!^.*faxgetty.*$!!' /etc/inittab
+	%{__sed} -i -e 's!^.*faxgetty.*$!!' /etc/inittab
 	/sbin/telinit q
 fi
 
