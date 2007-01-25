@@ -266,7 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 %service hylafax restart
 
 if [ "$1" = 1 ]; then
-	grep -i "faxgetty entry" /etc/inittab || \
+	grep -q -i "faxgetty entry" /etc/inittab || \
 	echo -e "# FaxGetty Entry\n#t0:23:respawn:%{_sbindir}/faxgetty ttyS0" >> /etc/inittab
 	echo "Please check if new fax entry in /etc/inittab is correct."
 	echo "Run \"%{_sbindir}/faxsetup -server\" to configure your fax server"
@@ -277,7 +277,7 @@ fi
 if [ "$1" = "0" ] ; then
 	%service hylafax stop
 	/sbin/chkconfig --del hylafax
-	%{__sed} -i -e 's!^.*faxgetty.*$!!' /etc/inittab
+	%{__sed} -i -e 's!^.*[Ff]ax[Gg]etty.*$!!' /etc/inittab
 	/sbin/telinit q
 fi
 
