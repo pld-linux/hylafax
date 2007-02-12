@@ -1,5 +1,5 @@
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
-Summary(pl):	HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksów
+Summary(pl.UTF-8):   HylaFAX(tm) to przemyÅ›lany, potÄ™Å¼ny pakiet do obsÅ‚ugi faksÃ³w
 Name:		hylafax
 Version:	4.3.1
 Release:	2
@@ -49,18 +49,18 @@ implementations exist for a number of platforms including Windows.
 You need this package if you are going to install hylafax-client
 and/or hylafax server.
 
-%description -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
-klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
-wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
-maszynach innych ni¿ serwer, dostêpne s± implementacje klientów na
-wiele platform, w tym na platformê Windows.
+%description -l pl.UTF-8
+HylaFAX(tm) to przemyÅ›lany, potÄ™Å¼ny pakiet do obsÅ‚ugi faksmodemÃ³w
+klasy 1 i 2 na systemach uniksowych. Dostarcza usÅ‚ug kolejkowania i
+wielu narzÄ™dzi do zarzÄ…dzania faksami. Klienci mogÄ… dziaÅ‚aÄ‡ na
+maszynach innych niÅ¼ serwer, dostÄ™pne sÄ… implementacje klientÃ³w na
+wiele platform, w tym na platformÄ™ Windows.
 
-Ten pakiet zawiera pliki wspólne dla serwera i klienta HylaFAX.
+Ten pakiet zawiera pliki wspÃ³lne dla serwera i klienta HylaFAX.
 
 %package server
 Summary:	The files for the HylaFAX(tm) fax server
-Summary(pl):	Pliki dla serwera faksów HylaFAX(tm)
+Summary(pl.UTF-8):   Pliki dla serwera faksÃ³w HylaFAX(tm)
 Group:		Applications/Communications
 Requires(post):	grep
 Requires(post):	textutils
@@ -79,18 +79,18 @@ implementations exist for a number of platforms including Windows.
 
 This is the server portion of HylaFAX.
 
-%description server -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
-klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
-wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
-maszynach innych ni¿ serwer, implementacje klientów s± dostêpne na
-wiele platform, w tym na platformê Windows.
+%description server -l pl.UTF-8
+HylaFAX(tm) to przemyÅ›lany, potÄ™Å¼ny pakiet do obsÅ‚ugi faksmodemÃ³w
+klasy 1 i 2 na systemach uniksowych. Dostarcza usÅ‚ug kolejkowania i
+wielu narzÄ™dzi do zarzÄ…dzania faksami. Klienci mogÄ… dziaÅ‚aÄ‡ na
+maszynach innych niÅ¼ serwer, implementacje klientÃ³w sÄ… dostÄ™pne na
+wiele platform, w tym na platformÄ™ Windows.
 
-Ten pakiet zawiera czê¶æ serwerow± HylaFAX.
+Ten pakiet zawiera czÄ™Å›Ä‡ serwerowÄ… HylaFAX.
 
 %package client
 Summary:	The files for the HylaFAX(tm) fax client
-Summary(pl):	Pliki dla klienta faksów HylaFAX(tm)
+Summary(pl.UTF-8):   Pliki dla klienta faksÃ³w HylaFAX(tm)
 Group:		Applications/Communications
 Requires:	%{name} = %{version}-%{release}
 
@@ -103,18 +103,18 @@ implementations exist for a number of platforms including Windows.
 
 This is the client portion of HylaFAX.
 
-%description client -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
-klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
-wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
-maszynach innych ni¿ serwer, implementacje klientów s± dostêpne na
-wiele platform, w tym na platformê Windows.
+%description client -l pl.UTF-8
+HylaFAX(tm) to przemyÅ›lany, potÄ™Å¼ny pakiet do obsÅ‚ugi faksmodemÃ³w
+klasy 1 i 2 na systemach uniksowych. Dostarcza usÅ‚ug kolejkowania i
+wielu narzÄ™dzi do zarzÄ…dzania faksami. Klienci mogÄ… dziaÅ‚aÄ‡ na
+maszynach innych niÅ¼ serwer, implementacje klientÃ³w sÄ… dostÄ™pne na
+wiele platform, w tym na platformÄ™ Windows.
 
-Ten pakiet zawiera czê¶æ klienck± HylaFAX.
+Ten pakiet zawiera czÄ™Å›Ä‡ klienckÄ… HylaFAX.
 
 %package libs
 Summary:	Hylafax libraries
-Summary(pl):	Biblioteki HylaFAX
+Summary(pl.UTF-8):   Biblioteki HylaFAX
 Group:		Libraries
 
 %description libs
@@ -126,26 +126,26 @@ implementations exist for a number of platforms including Windows.
 
 This package contains the shared libraries of HylaFAX.
 
-%description libs -l pl
-HylaFAX(tm) to przemy¶lany, potê¿ny pakiet do obs³ugi faksmodemów
-klasy 1 i 2 na systemach uniksowych. Dostarcza us³ug kolejkowania i
-wielu narzêdzi do zarz±dzania faksami. Klienci mog± dzia³aæ na
-maszynach innych ni¿ serwer, implementacje klientów s± dostêpne na
-wiele platform, w tym na platformê Windows.
+%description libs -l pl.UTF-8
+HylaFAX(tm) to przemyÅ›lany, potÄ™Å¼ny pakiet do obsÅ‚ugi faksmodemÃ³w
+klasy 1 i 2 na systemach uniksowych. Dostarcza usÅ‚ug kolejkowania i
+wielu narzÄ™dzi do zarzÄ…dzania faksami. Klienci mogÄ… dziaÅ‚aÄ‡ na
+maszynach innych niÅ¼ serwer, implementacje klientÃ³w sÄ… dostÄ™pne na
+wiele platform, w tym na platformÄ™ Windows.
 
-Ten pakiet zawiera biblioteki wspó³dzielone HylaFAX.
+Ten pakiet zawiera biblioteki wspÃ³Å‚dzielone HylaFAX.
 
 %package devel
 Summary:	Hylafax libraries development part
-Summary(pl):	Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX
+Summary(pl.UTF-8):   Pakiet dla programistÃ³w uÅ¼ywajÄ…cych bibliotek HylaFAX
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 This is development package for HylaFAX libraries.
 
-%description devel -l pl
-Pakiet dla programistów u¿ywaj±cych bibliotek HylaFAX.
+%description devel -l pl.UTF-8
+Pakiet dla programistÃ³w uÅ¼ywajÄ…cych bibliotek HylaFAX.
 
 %prep
 %setup -q -a1 -a2 -a3
