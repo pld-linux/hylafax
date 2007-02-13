@@ -1,5 +1,5 @@
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
-Summary(pl.UTF-8):   HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksów
+Summary(pl.UTF-8):	HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksów
 Name:		hylafax
 Version:	4.3.1
 Release:	2
@@ -60,7 +60,7 @@ Ten pakiet zawiera pliki wspólne dla serwera i klienta HylaFAX.
 
 %package server
 Summary:	The files for the HylaFAX(tm) fax server
-Summary(pl.UTF-8):   Pliki dla serwera faksów HylaFAX(tm)
+Summary(pl.UTF-8):	Pliki dla serwera faksów HylaFAX(tm)
 Group:		Applications/Communications
 Requires(post):	grep
 Requires(post):	textutils
@@ -90,7 +90,7 @@ Ten pakiet zawiera część serwerową HylaFAX.
 
 %package client
 Summary:	The files for the HylaFAX(tm) fax client
-Summary(pl.UTF-8):   Pliki dla klienta faksów HylaFAX(tm)
+Summary(pl.UTF-8):	Pliki dla klienta faksów HylaFAX(tm)
 Group:		Applications/Communications
 Requires:	%{name} = %{version}-%{release}
 
@@ -114,7 +114,7 @@ Ten pakiet zawiera część kliencką HylaFAX.
 
 %package libs
 Summary:	Hylafax libraries
-Summary(pl.UTF-8):   Biblioteki HylaFAX
+Summary(pl.UTF-8):	Biblioteki HylaFAX
 Group:		Libraries
 
 %description libs
@@ -137,7 +137,7 @@ Ten pakiet zawiera biblioteki współdzielone HylaFAX.
 
 %package devel
 Summary:	Hylafax libraries development part
-Summary(pl.UTF-8):   Pakiet dla programistów używających bibliotek HylaFAX
+Summary(pl.UTF-8):	Pakiet dla programistów używających bibliotek HylaFAX
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 
