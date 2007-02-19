@@ -93,6 +93,7 @@ Summary:	The files for the HylaFAX(tm) fax client
 Summary(pl.UTF-8):	Pliki dla klienta faksów HylaFAX(tm)
 Group:		Applications/Communications
 Requires:	%{name} = %{version}-%{release}
+Requires:	metamail
 
 %description client
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
