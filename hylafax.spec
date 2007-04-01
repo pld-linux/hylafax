@@ -1,12 +1,12 @@
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl.UTF-8):	HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksów
 Name:		hylafax
-Version:	4.3.1
-Release:	2
+Version:	4.3.3
+Release:	1
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	edd50d92a598be13a985b3b94d280022
+# Source0-md5:	0eda0ed1eae16bee177d2bcfb3a052da
 #Source0:	http://dl.sourceforge.net/hylafax/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 # Source1-md5:	d5e2bd6447715654ba916b6f4d0d9343
@@ -320,10 +320,11 @@ fi
 %dir %{faxspool}/dev
 %dir %{faxspool}/etc
 %dir %{faxspool}/etc/templates
-%{faxspool}/etc/templates/*.txt
+%{faxspool}/etc/templates/README
+%{faxspool}/etc/templates/html-sample1
+%{faxspool}/etc/templates/en
 %lang(de) %{faxspool}/etc/templates/de
 %lang(es) %{faxspool}/etc/templates/es
-%lang(de) %{faxspool}/etc/templates/de
 %lang(fr) %{faxspool}/etc/templates/fr
 %lang(it) %{faxspool}/etc/templates/it
 %lang(pl) %{faxspool}/etc/templates/pl
