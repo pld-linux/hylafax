@@ -1,0 +1,21 @@
+diff -urN hylafax-4.3.4.org/html/building.html hylafax-4.3.4/html/building.html
+--- hylafax-4.3.4.org/html/building.html	2005-08-08 21:38:09.000000000 +0200
++++ hylafax-4.3.4/html/building.html	2007-06-09 20:39:06.024967626 +0200
+@@ -1120,7 +1120,7 @@
+ <TR>
+ <TD VALIGN=top><LISTING>
+ Selecting programs used during installation and operation.
+-Looks like /usr/bin/awk should be used to process command scripts.
++Looks like /bin/awk should be used to process command scripts.
+ Looks like /usr/sbin/sendmail should be used to deliver mail.
+ Looks like /usr/bin/mkfifo creates FIFO special files.
+ Looks like /bin/mv supports the -f option to force a move.
+diff -urN hylafax-4.3.4.org/util/b64-encode.awk hylafax-4.3.4/util/b64-encode.awk
+--- hylafax-4.3.4.org/util/b64-encode.awk	2007-01-09 15:14:12.000000000 +0100
++++ hylafax-4.3.4/util/b64-encode.awk	2007-06-09 20:39:06.031634632 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/awk -f
++#!/bin/awk -f
+ #	$Id$
+ #
+ # HylaFAX Facsimile Software
