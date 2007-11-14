@@ -33,7 +33,7 @@ BuildRequires:	sed >= 4.1
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	ghostscript
-Requires:	ghostscript-fonts-std
+Requires:	fonts-Type1-urw
 Requires:	libtiff-progs
 Conflicts:	mgetty-sendfax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
