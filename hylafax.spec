@@ -1,12 +1,12 @@
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl.UTF-8):	HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksów
 Name:		hylafax
-Version:	4.4.3
+Version:	4.4.4
 Release:	1
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	2b34dbcb769f4d5bff07990c51adc0e8
+# Source0-md5:	4beb3d438ca6c4f00f1d94f9643e6668
 #Source0:	http://dl.sourceforge.net/hylafax/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 # Source1-md5:	d5e2bd6447715654ba916b6f4d0d9343
