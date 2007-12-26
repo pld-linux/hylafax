@@ -32,8 +32,8 @@ BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.1
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	ghostscript
 Requires:	fonts-Type1-urw
+Requires:	ghostscript
 Requires:	libtiff-progs
 Conflicts:	mgetty-sendfax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
