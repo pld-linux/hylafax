@@ -1,0 +1,17 @@
+diff -urN hylafax-4.3.4.org/util/b64-encode.awk hylafax-4.3.4/util/b64-encode.awk
+--- hylafax-4.3.4.org/util/b64-encode.awk	2007-01-09 15:14:12.000000000 +0100
++++ hylafax-4.3.4/util/b64-encode.awk	2007-06-09 20:39:06.031634632 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/awk -f
++#!/bin/awk -f
+ #	$Id$
+ #
+ # HylaFAX Facsimile Software
+--- hylafax-4.3.4.org/util/qp-encode.awk 2007-11-25 20:22:44.377995791 +0000
++++ hylafax-4.3.4/util/qp-encode.awk     2007-11-25 20:22:49.230995589 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/awk -f
++#!/bin/awk -f
+ #	$Id$
+ #
+ # HylaFAX Facsimile Software
