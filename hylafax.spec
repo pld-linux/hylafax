@@ -42,7 +42,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
-class 1 and 2 fax modems on unix systems. It provides spooling
+class 1 and 2 fax modems on Unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
 implementations exist for a number of platforms including Windows.
@@ -73,7 +73,7 @@ Requires:	rc-scripts
 
 %description server
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
-class 1 and 2 fax modems on unix systems. It provides spooling
+class 1 and 2 fax modems on Unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
 implementations exist for a number of platforms including Windows.
@@ -98,7 +98,7 @@ Requires:	metamail
 
 %description client
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
-class 1 and 2 fax modems on unix systems. It provides spooling
+class 1 and 2 fax modems on Unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
 implementations exist for a number of platforms including Windows.
@@ -121,7 +121,7 @@ Group:		Libraries
 
 %description libs
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
-class 1 and 2 fax modems on unix systems. It provides spooling
+class 1 and 2 fax modems on Unix systems. It provides spooling
 services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
 implementations exist for a number of platforms including Windows.
