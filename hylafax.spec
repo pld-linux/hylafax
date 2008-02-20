@@ -156,6 +156,10 @@ Pakiet dla programistów używających bibliotek HylaFAX.
 %patch2 -p1
 %patch3 -p1
 
+%ifarch sparc64
+sed -i -e 's/-fpic/-fPIC/g' configure
+%endif
+
 %build
 # set dummy GCOPTS,GCXXOPTS to avoid adding "-g"
 GCOPTS=" " \
