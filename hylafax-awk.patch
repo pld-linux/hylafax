@@ -6,8 +6,8 @@
  #	$Id$
  #
  # HylaFAX Facsimile Software
---- /home/users/arekm/rpm/BUILD/hylafax-4.4.5/util/qp-encode.awk~	2007-01-09 15:14:12.000000000 +0100
-+++ /home/users/arekm/rpm/BUILD/hylafax-4.4.5/util/qp-encode.awk	2010-08-16 08:20:31.653423097 +0200
+--- hylafax-4.4.5/util/qp-encode.awk~	2007-01-09 15:14:12.000000000 +0100
++++ hylafax-4.4.5/util/qp-encode.awk	2010-08-16 08:20:31.653423097 +0200
 @@ -1,4 +1,4 @@
 -#!/usr/bin/awk -f
 +#!/bin/awk -f
