@@ -1,13 +1,13 @@
---- hylafax-4.4.5/util/b64-encode.awk~	2009-03-20 16:36:34.000000000 +0100
-+++ hylafax-4.4.5/util/b64-encode.awk	2010-08-16 08:20:05.990925413 +0200
+--- hylafax-4.4.6/util/b64-encode.awk~	2009-12-28 21:06:52.000000000 +0200
++++ hylafax-4.4.6/util/b64-encode.awk	2010-08-24 00:29:04.497501168 +0300
 @@ -1,4 +1,4 @@
 -#!/usr/bin/awk -f
 +#!/bin/awk -f
  #	$Id$
  #
  # HylaFAX Facsimile Software
---- hylafax-4.4.5/util/qp-encode.awk~	2007-01-09 15:14:12.000000000 +0100
-+++ hylafax-4.4.5/util/qp-encode.awk	2010-08-16 08:20:31.653423097 +0200
+--- hylafax-4.4.6/util/qp-encode.awk~	2009-12-28 21:06:52.000000000 +0200
++++ hylafax-4.4.6/util/qp-encode.awk	2010-08-24 00:29:25.650823200 +0300
 @@ -1,4 +1,4 @@
 -#!/usr/bin/awk -f
 +#!/bin/awk -f

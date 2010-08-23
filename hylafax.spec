@@ -1,12 +1,18 @@
+# TODO
+# - unpackaged:
+#   /usr/share/fax/faxcover_example_sgi.ps
+#   /usr/share/man/README.hylafax-man-pages
+#   /usr/share/man/diff.faxmsg.8c.gz
+#   /usr/share/man/diff.typetest.8c.gz
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl.UTF-8):	HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksów
 Name:		hylafax
-Version:	4.4.5
-Release:	3
+Version:	4.4.6
+Release:	1
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	4e6099aba8edff4256ccc9e59490a92e
+# Source0-md5:	f65aa02066d05c19a41c3e064cd68d41
 #Source0:	http://dl.sourceforge.net/hylafax/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 # Source1-md5:	d5e2bd6447715654ba916b6f4d0d9343
@@ -23,6 +29,7 @@ Patch0:		%{name}-no_libgl_man.patch
 Patch1:		%{name}-topmargin.patch
 Patch2:		%{name}-pic.patch
 Patch3:		%{name}-awk.patch
+Patch4:		fchmod-prototype.patch
 URL:		http://www.hylafax.org/
 BuildRequires:	libjpeg-devel
 BuildRequires:	libstdc++-devel
@@ -155,6 +162,7 @@ Pakiet dla programistów używających bibliotek HylaFAX.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %ifarch sparc64
 sed -i -e 's/-fpic/-fPIC/g' configure
@@ -162,6 +170,11 @@ sed -i -e 's/-fpic/-fPIC/g' configure
 
 %build
 # set dummy GCOPTS,GCXXOPTS to avoid adding "-g"
+# the configure is too stupid to keep spaces in CC/CXX, so strip ccache if any
+CC="%{__cc}"
+CCXX="%{__cxx}"
+CC=${CC#ccache } \
+CXX=${CXX#ccache } \
 GCOPTS=" " \
 GCXXOPTS=" " \
 ./configure \
@@ -196,10 +209,10 @@ install -d $RPM_BUILD_ROOT/etc/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} 
 	$RPM_BUILD_ROOT%{_mandir}/{man1,man5,man8}
 
 %{__make} install -e \
-	FAXUSER=`id -u` \
-	FAXGROUP=`id -g` \
-	SYSUSER=`id -u` \
-	SYSGROUP=`id -g` \
+	FAXUSER=$(id -u) \
+	FAXGROUP=$(id -g) \
+	SYSUSER=$(id -u) \
+	SYSGROUP=$(id -g) \
 	BIN=$RPM_BUILD_ROOT%{_bindir} \
 	SBIN=$RPM_BUILD_ROOT%{_sbindir} \
 	LIBDATA=$RPM_BUILD_ROOT%{_datadir}/fax \
@@ -216,23 +229,23 @@ sed -i -e 's!%{_prefix}%{_sysconfdir}/inetd.conf!%{_sysconfdir}/inetd.conf!g' $R
 sed -i -e 's!%{_libdir}/aliases!%{_sysconfdir}/aliases!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
 
 # init
-install %{SOURCE7} $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
+install -p %{SOURCE7} $RPM_BUILD_ROOT/etc/rc.d/init.d/hylafax
 
 # defaults
-install defaults/* $RPM_BUILD_ROOT%{faxspool}/config/defaults
+install -p defaults/* $RPM_BUILD_ROOT%{faxspool}/config/defaults
 
 # hyla.conf
-install %{SOURCE8} $RPM_BUILD_ROOT%{_datadir}/fax/hyla.conf
+cp -a %{SOURCE8} $RPM_BUILD_ROOT%{_datadir}/fax/hyla.conf
 
 # cron entries
-install hylafax_daily.cron  $RPM_BUILD_ROOT/etc/cron.daily/hylafax
-install hylafax_hourly.cron $RPM_BUILD_ROOT/etc/cron.hourly/hylafax
+install -p hylafax_daily.cron  $RPM_BUILD_ROOT/etc/cron.daily/hylafax
+install -p hylafax_hourly.cron $RPM_BUILD_ROOT/etc/cron.hourly/hylafax
 
 # logrotate
-install %{SOURCE6} $RPM_BUILD_ROOT/etc/logrotate.d/hylafax
+cp -a %{SOURCE6} $RPM_BUILD_ROOT/etc/logrotate.d/hylafax
 
 # dialrules extras
-install dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}/etc
+install -p dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}/etc
 
 ln -sf ps2fax.gs $RPM_BUILD_ROOT%{faxspool}/bin/ps2fax
 
