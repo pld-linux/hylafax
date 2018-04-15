@@ -1,18 +1,12 @@
-# TODO
-# - unpackaged:
-#   /usr/share/fax/faxcover_example_sgi.ps
-#   /usr/share/man/README.hylafax-man-pages
-#   /usr/share/man/diff.faxmsg.8c.gz
-#   /usr/share/man/diff.typetest.8c.gz
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl.UTF-8):	HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksów
 Name:		hylafax
-Version:	4.4.7
-Release:	2
+Version:	6.0.6
+Release:	1
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	023651ecb29014a16a19b7503f88d16a
+# Source0-md5:	d063d45049c8fcbabefe09d662313067
 #Source0:	http://dl.sourceforge.net/hylafax/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 # Source1-md5:	d5e2bd6447715654ba916b6f4d0d9343
@@ -29,12 +23,13 @@ Patch0:		%{name}-no_libgl_man.patch
 Patch1:		%{name}-topmargin.patch
 Patch2:		%{name}-pic.patch
 Patch3:		%{name}-awk.patch
-Patch4:		fchmod-prototype.patch
+Patch4:		%{name}-format.patch
 URL:		http://www.hylafax.org/
-BuildRequires:	libjpeg-devel
+BuildRequires:	jbigkit-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtiff-progs
+BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.1
 BuildRequires:	zlib-devel
@@ -122,9 +117,11 @@ wiele platform, w tym na platformę Windows.
 Ten pakiet zawiera część kliencką HylaFAX.
 
 %package libs
-Summary:	Hylafax libraries
-Summary(pl.UTF-8):	Biblioteki HylaFAX
+Summary:	Hylafax shared library
+Summary(pl.UTF-8):	Biblioteka współdzielona HylaFAX
 Group:		Libraries
+# no development package in 6.x
+Obsoletes:	hylafax-devel < 6
 
 %description libs
 HylaFAX(tm) is a sophisticated enterprise-strength fax package for
@@ -133,7 +130,7 @@ services and numerous supporting fax management tools. The fax clients
 may reside on machines different from the server and client
 implementations exist for a number of platforms including Windows.
 
-This package contains the shared libraries of HylaFAX.
+This package contains the HylaFAX shared library.
 
 %description libs -l pl.UTF-8
 HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksmodemów
@@ -142,19 +139,7 @@ wielu narzędzi do zarządzania faksami. Klienci mogą działać na
 maszynach innych niż serwer, implementacje klientów są dostępne na
 wiele platform, w tym na platformę Windows.
 
-Ten pakiet zawiera biblioteki współdzielone HylaFAX.
-
-%package devel
-Summary:	Hylafax libraries development part
-Summary(pl.UTF-8):	Pakiet dla programistów używających bibliotek HylaFAX
-Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}-%{release}
-
-%description devel
-This is development package for HylaFAX libraries.
-
-%description devel -l pl.UTF-8
-Pakiet dla programistów używających bibliotek HylaFAX.
+Ten pakiet zawiera bibliotekę współdzieloną HylaFAX.
 
 %prep
 %setup -q -a1 -a2 -a3
@@ -162,7 +147,6 @@ Pakiet dla programistów używających bibliotek HylaFAX.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %ifarch sparc64
 sed -i -e 's/-fpic/-fPIC/g' configure
@@ -223,6 +207,7 @@ install -d $RPM_BUILD_ROOT/etc/{logrotate.d,cron.hourly,cron.daily,rc.d/init.d} 
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
 bzip2 -dc %{SOURCE4} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/{README,diff}.*
 
 # some hacks
 sed -i -e 's!%{_prefix}%{_sysconfdir}/inetd.conf!%{_sysconfdir}/inetd.conf!g' $RPM_BUILD_ROOT%{_sbindir}/faxsetup
@@ -249,21 +234,10 @@ install -p dialrules_extras/dialrules* $RPM_BUILD_ROOT%{faxspool}/etc
 
 ln -sf ps2fax.gs $RPM_BUILD_ROOT%{faxspool}/bin/ps2fax
 
-# The Makefile puts the .so file in /usr/sbin. Move them to /usr/lib
-#mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so.* $RPM_BUILD_ROOT%{_libdir}
-#mv -f $RPM_BUILD_ROOT%{_sbindir}/*.so $RPM_BUILD_ROOT%{_libdir}
-
-# Since now the html doc dir is managed by the doc macro and not installed
-# by HylaFAX, the CVS stuff need to be deleted
-rm -rf $(find ./html -type d -name CVS)
-rm -f ./html/{.cvsignore,Makefile.in}
-
-# Some tools (manpage, man2html, unquote)
-rm -f html/tools/{unquote,man2html}
-
 # If Linux, what else...? :-), delete unnecessary files
 %ifos linux
-rm -f $RPM_BUILD_ROOT%{_sbindir}/{faxsetup.irix,faxsetup.bsdi}
+%{__rm} $RPM_BUILD_ROOT%{_sbindir}/{faxsetup.irix,faxsetup.bsdi} \
+	$RPM_BUILD_ROOT%{_datadir}/fax/faxcover_example_sgi.ps
 %endif
 
 %clean
@@ -319,12 +293,20 @@ fi
 %attr(755,root,root) %{_bindir}/faxrm
 %attr(755,root,root) %{_sbindir}/edit-faxcover
 %attr(755,root,root) %{_sbindir}/textfmt
-%attr(755,root,root) %{_sbindir}/faxlock
 %{_datadir}/fax/pagesizes
 %config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/faxcover.ps
 %config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/typerules
 %config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/hyla.conf
-%{_mandir}/man1/*
+%{_mandir}/man1/edit-faxcover.1*
+%{_mandir}/man1/faxalter.1*
+%{_mandir}/man1/faxcover.1*
+%{_mandir}/man1/faxmail.1*
+%{_mandir}/man1/faxrm.1*
+%{_mandir}/man1/faxstat.1*
+%{_mandir}/man1/hylafax-client.1*
+%{_mandir}/man1/sendfax.1*
+%{_mandir}/man1/sendpage.1*
+%{_mandir}/man1/textfmt.1*
 
 %files server
 %defattr(644,root,root,755)
@@ -373,18 +355,16 @@ fi
 %attr(755,root,root) %{faxspool}/bin/*
 %{faxspool}/config/*
 
-%attr(755,root,root) %{_sbindir}/hfaxd
-%attr(755,root,root) %{_sbindir}/hylafax
-%attr(755,root,root) %{_sbindir}/faxdeluser
-%attr(755,root,root) %{_sbindir}/faxadduser
 %attr(755,root,root) %{_sbindir}/choptest
 %attr(755,root,root) %{_sbindir}/cqtest
 %attr(755,root,root) %{_sbindir}/dialtest
 %attr(755,root,root) %{_sbindir}/faxabort
 %attr(755,root,root) %{_sbindir}/faxaddmodem
+%attr(755,root,root) %{_sbindir}/faxadduser
 %attr(755,root,root) %{_sbindir}/faxanswer
 %attr(755,root,root) %{_sbindir}/faxconfig
 %attr(755,root,root) %{_sbindir}/faxcron
+%attr(755,root,root) %{_sbindir}/faxdeluser
 %attr(755,root,root) %{_sbindir}/faxgetty
 %attr(755,root,root) %{_sbindir}/faxinfo
 %attr(755,root,root) %{_sbindir}/faxlock
@@ -396,6 +376,8 @@ fi
 %attr(755,root,root) %{_sbindir}/faxsend
 %attr(755,root,root) %{_sbindir}/faxstate
 %attr(755,root,root) %{_sbindir}/faxwatch
+%attr(755,root,root) %{_sbindir}/hfaxd
+%attr(755,root,root) %{_sbindir}/hylafax
 %attr(755,root,root) %{_sbindir}/lockname
 %attr(755,root,root) %{_sbindir}/ondelay
 %attr(755,root,root) %{_sbindir}/pagesend
@@ -410,15 +392,66 @@ fi
 %{_datadir}/fax/faxmail.ps
 %config(noreplace) %verify(not md5 mtime size) %{_datadir}/fax/hfaxd.conf
 
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+%{_mandir}/man5/dialrules.5f*
+%{_mandir}/man5/doneq.5f*
+%{_mandir}/man5/hosts.hfaxd.5f*
+%{_mandir}/man5/hylafax-config.5f*
+%{_mandir}/man5/hylafax-info.5f*
+%{_mandir}/man5/hylafax-log.5f*
+%{_mandir}/man5/hylafax-server.5f*
+%{_mandir}/man5/hylafax-shutdown.5f*
+%{_mandir}/man5/pagermap.5f*
+%{_mandir}/man5/pagesizes.5f*
+%{_mandir}/man5/recvq.5f*
+%{_mandir}/man5/sendq.5f*
+%{_mandir}/man5/status.5f*
+%{_mandir}/man5/tsi.5f*
+%{_mandir}/man5/typerules.5f*
+%{_mandir}/man5/xferfaxlog.5f*
+%{_mandir}/man8/choptest.8c*
+%{_mandir}/man8/cqtest.8c*
+%{_mandir}/man8/dialtest.8c*
+%{_mandir}/man8/faxabort.8c*
+%{_mandir}/man8/faxaddmodem.8c*
+%{_mandir}/man8/faxadduser.8c*
+%{_mandir}/man8/faxanswer.8c*
+%{_mandir}/man8/faxconfig.8c*
+%{_mandir}/man8/faxcron.8c*
+%{_mandir}/man8/faxdeluser.8c*
+%{_mandir}/man8/faxgetty.8c*
+%{_mandir}/man8/faxinfo.8c*
+%{_mandir}/man8/faxlock.8c*
+%{_mandir}/man8/faxmodem.8c*
+%{_mandir}/man8/faxmsg.8c*
+%{_mandir}/man8/faxq.8c*
+%{_mandir}/man8/faxqclean.8c*
+%{_mandir}/man8/faxquit.8c*
+%{_mandir}/man8/faxrcvd.8c*
+%{_mandir}/man8/faxsend.8c*
+%{_mandir}/man8/faxsetup.8c*
+%{_mandir}/man8/faxstate.8c*
+%{_mandir}/man8/faxwatch.8c*
+%{_mandir}/man8/hfaxd.8c*
+%{_mandir}/man8/jobcontrol.8c*
+%{_mandir}/man8/lockname.8c*
+%{_mandir}/man8/mkcover.8c*
+%{_mandir}/man8/notify.8c*
+%{_mandir}/man8/ondelay.8c*
+%{_mandir}/man8/pagesend.8c*
+%{_mandir}/man8/pdf2fax.8c*
+%{_mandir}/man8/pollrcvd.8c*
+%{_mandir}/man8/probemodem.8c*
+%{_mandir}/man8/ps2fax.8c*
+%{_mandir}/man8/recvstats.8c*
+%{_mandir}/man8/tagtest.8c*
+%{_mandir}/man8/tiff2fax.8c*
+%{_mandir}/man8/tiffcheck.8c*
+%{_mandir}/man8/tsitest.8c*
+%{_mandir}/man8/typetest.8c*
+%{_mandir}/man8/wedged.8c*
+%{_mandir}/man8/xferfaxstats.8c*
 
 %files libs
 %defattr(644,root,root,755)
 %doc COPYRIGHT
-%attr(755,root,root) %{_libdir}/*.so.*.*
-
-%files devel
-%defattr(644,root,root,755)
-#%doc html
-%attr(755,root,root) %{_libdir}/*.so
+%attr(755,root,root) %{_libdir}/libhylafax-6.0.so.6

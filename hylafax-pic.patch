@@ -1,32 +1,15 @@
---- hylafax-4.1.8/util/Makefile.in.orig	2004-03-24 10:02:10.000000000 +0000
-+++ hylafax-4.1.8/util/Makefile.in	2004-03-24 10:17:59.000000000 +0000
-@@ -100,6 +100,14 @@
+--- hylafax-6.0.6/faxd/Makefile.in.orig	2018-04-14 21:55:33.933554074 +0200
++++ hylafax-6.0.6/faxd/Makefile.in	2018-04-14 21:59:53.600217776 +0200
+@@ -172,6 +172,9 @@
  
- include ${COMMONRULES}
- 
-+OBJCFILES = ${CFILES:.c=.o}
-+${OBJCFILES}: %.o: %.c
-+	${CCF} -fPIC -c $<
-+
-+OBJC++FILES = ${C++FILES:.c++=.o}
-+${OBJC++FILES}: %.o: %.c++
-+	${C++F} -fPIC ${C++FILE} -c $<
-+
- libfaxutil.a: ${OBJECTS}
- 	@rm -f $@;
- 	@echo "${AR} ${AROPTS} $@ ${OBJECTS}"; \
---- hylafax-4.1.8/faxd/Makefile.in.orig	2002-08-15 16:27:32.000000000 +0000
-+++ hylafax-4.1.8/faxd/Makefile.in	2004-03-24 10:53:22.000000000 +0000
-@@ -158,6 +158,9 @@
- 
- @MAKEINCLUDE@ @MAKELQUOTE@${COMMONRULES}@MAKERQUOTE@
+ LIBFAXSERVER=-L. -lfaxserver-${ABI_VERSION}
  
 +${SERVER_OBJS} ${MODEM_OBJS}: %.o: %.c++
 +	${C++F} -fPIC ${C++FILE} -c $<
 +
- libfaxserver.a: ${SERVER_OBJS} ${MODEM_OBJS}
- 	${AR} ${AROPTS} libfaxserver.a $?
- 	${RANLIB} libfaxserver.a
+ libfaxserver-${ABI_VERSION}.a: ${SERVER_OBJS} ${MODEM_OBJS}
+ 	${AR} ${AROPTS} libfaxserver-${ABI_VERSION}.a $?
+ 	${RANLIB} libfaxserver-${ABI_VERSION}.a
 --- hylafax-4.1.8/regex/Makefile.in.orig	1999-08-05 10:01:44.000000000 +0000
 +++ hylafax-4.1.8/regex/Makefile.in	2004-03-24 12:07:30.000000000 +0000
 @@ -53,6 +53,9 @@
