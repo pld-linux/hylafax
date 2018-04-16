@@ -147,6 +147,7 @@ Ten pakiet zawiera bibliotekę współdzieloną HylaFAX.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %ifarch sparc64
 sed -i -e 's/-fpic/-fPIC/g' configure
