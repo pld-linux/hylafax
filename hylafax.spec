@@ -24,6 +24,7 @@ Patch1:		%{name}-topmargin.patch
 Patch2:		%{name}-pic.patch
 Patch3:		%{name}-awk.patch
 Patch4:		%{name}-format.patch
+Patch5:		%{name}-FaxRecvInfo.patch
 URL:		http://www.hylafax.org/
 BuildRequires:	jbigkit-devel
 BuildRequires:	libstdc++-devel
@@ -148,6 +149,7 @@ Ten pakiet zawiera bibliotekę współdzieloną HylaFAX.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %ifarch sparc64
 sed -i -e 's/-fpic/-fPIC/g' configure
@@ -157,7 +159,7 @@ sed -i -e 's/-fpic/-fPIC/g' configure
 # set dummy GCOPTS,GCXXOPTS to avoid adding "-g"
 # the configure is too stupid to keep spaces in CC/CXX, so strip ccache if any
 CC="%{__cc}"
-CCXX="%{__cxx}"
+CXX="%{__cxx}"
 CC=${CC#ccache } \
 CXX=${CXX#ccache } \
 GCOPTS=" " \
