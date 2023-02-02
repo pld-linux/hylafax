@@ -1,12 +1,12 @@
 Summary:	HylaFAX(tm) is a sophisticated enterprise strength fax package
 Summary(pl.UTF-8):	HylaFAX(tm) to przemyślany, potężny pakiet do obsługi faksów
 Name:		hylafax
-Version:	6.0.6
-Release:	2
+Version:	6.0.7
+Release:	1
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://ftp.hylafax.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	d063d45049c8fcbabefe09d662313067
+# Source0-md5:	7602e98b882fa61a0722109c2706d1f1
 #Source0:	http://dl.sourceforge.net/hylafax/%{name}-%{version}.tar.gz
 Source1:	%{name}-cron_entries.tar.gz
 # Source1-md5:	d5e2bd6447715654ba916b6f4d0d9343
@@ -25,6 +25,7 @@ Patch2:		%{name}-pic.patch
 Patch3:		%{name}-awk.patch
 Patch4:		%{name}-format.patch
 Patch5:		%{name}-FaxRecvInfo.patch
+Patch6:         tiff.patch
 URL:		http://www.hylafax.org/
 BuildRequires:	jbigkit-devel
 BuildRequires:	libstdc++-devel
@@ -150,6 +151,7 @@ Ten pakiet zawiera bibliotekę współdzieloną HylaFAX.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %ifarch sparc64
 sed -i -e 's/-fpic/-fPIC/g' configure
@@ -164,6 +166,7 @@ CC=${CC#ccache } \
 CXX=${CXX#ccache } \
 GCOPTS=" " \
 GCXXOPTS=" " \
+STRIP=/bin/true \
 ./configure \
 	--with-DIR_BIN=%{_bindir} \
 	--with-DIR_SBIN=%{_sbindir} \
@@ -186,7 +189,7 @@ GCXXOPTS=" " \
 	--with-PATH_SENDMAIL=/usr/sbin/sendmail
 
 %{__make} -j1 \
-	OPTIMIZER="%{rpmcflags}"
+	OPTIMIZER="%{rpmcflags} %{rpmcppflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -457,4 +460,4 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %doc COPYRIGHT
-%attr(755,root,root) %{_libdir}/libhylafax-6.0.so.6
+%attr(755,root,root) %{_libdir}/libhylafax-6.0.so.7
